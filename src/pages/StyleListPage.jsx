@@ -18,7 +18,7 @@ export const StyleListPage = () => {
   return (
     <div className="flex h-screen">
       <div className="w-1/5">
-        <NavMenu/>
+        <NavMenu activePage="Style List"/>
       </div>
       <div className="w-3/5">
         <div className="text-2xl font-thin mt-10 mb-6">Application's Style List</div>

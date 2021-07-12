@@ -1,22 +1,36 @@
-export const NavMenu = () => {
+import {useHistory} from "react-router-dom";
+
+export const NavMenu = (props) => {
+
+  const {activePage} = props
+
+  const renderItem = (title, handleClick) => {
+    if (title == activePage) {
+      return (
+        <li className="my-px bg-gray-50 rounded">
+          <span
+            className="flex font-medium text-sm text-gray-500 px-4 my-4 uppercase cursor-pointer">{title}</span>
+        </li>
+      )
+    } else {
+      return (
+        <li className="my-px">
+          <span
+            onClick={() => handleClick()}
+            className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase cursor-pointer">{title}</span>
+        </li>
+      )
+    }
+  }
+  const history = useHistory();
+
   return (
     <div className="flex w-full h-full max-w-xs p-4 bg-gray-800">
       <ul className="flex flex-col w-full">
+        {renderItem('Style List', () => history.push('/'))}
+        {renderItem('Create New Style', () => history.push('create-new-style'))}
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 bg-gray-100">
-            <span className="flex items-center justify-center text-lg text-gray-500">
-            </span>
-            <img></img>
-            <span className="">Style List</span>
-          </a>
-        </li>
-        <li class="my-px">
-          <span class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">Add New Style</span>
-        </li>
-        <li class="my-px">
-          <span class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">Log Out</span>
+          <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">Log Out</span>
         </li>
       </ul>
     </div>

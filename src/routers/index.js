@@ -3,6 +3,7 @@ import {
     Switch,
     Route
 } from "react-router-dom";
+import { CreateNewStylePage } from "../pages/CreateNewStylePage";
 import { StyleDetailPage } from "../pages/StyleDetailPage"; 
 import { StyleListPage } from "../pages/StyleListPage";
 
@@ -13,7 +14,10 @@ export default function App() {
           <Route path="/styles/:id">
             <StyleDetailPage />
           </Route>
-          <Route path="/styles">
+          <Route path="/create-new-style">
+            <CreateNewStylePage />
+          </Route>
+          <Route path="/">
             <StyleListPage />
           </Route>
           

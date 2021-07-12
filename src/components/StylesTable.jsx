@@ -1,7 +1,12 @@
+import { useHistory } from "react-router-dom";
+
+
 export const StylesTable = (props) => {
-
+    const history = useHistory();
     const {styles} = props
-
+    const handleItemClick = (styleId) => {
+      history.push(`/styles/${styleId}`)
+    }
     const renderTableItem = () => {
       return styles.map(style => {
         const {styleName, iconURL, id} = style
@@ -20,7 +25,7 @@ export const StylesTable = (props) => {
             <td className="text-center border-b border-grey-light">12/07/2021</td>
             <td className="py-4 border-b border-grey-light">
               <div className="flex justify-center">
-                <button className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-blue-500 hover:bg-blue-700">View</button>
+                <button onClick={() => handleItemClick(id)} className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-blue-500 hover:bg-blue-700">View</button>
                 <button className="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-red-400 text-white hover:bg-red-600">Delete</button>
               </div>
               

@@ -4,7 +4,7 @@ import {fetchAllStyles} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
 
-export const StyleDetailPage = () => {
+export const CreateNewStylePage = () => {
   const [styles,
     setStyles] = useState([])
   const history = useHistory();
@@ -20,7 +20,7 @@ export const StyleDetailPage = () => {
   return (
     <div className="flex h-screen">
       <div className="w-1/5">
-        <NavMenu activePage="Style List"/>
+        <NavMenu activePage="Create New Style"/>
       </div>
       <div className="w-3/5 pt-5">
         <div className="flex items-center mb-6">
@@ -28,7 +28,7 @@ export const StyleDetailPage = () => {
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
             onClick={() => history.push('/')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
-          <div className="text-2xl font-thin">Application's Style Detail</div>
+          <div className="text-2xl font-thin">Create New Application's Style</div>
 
         </div>
         <div className="font-medium text-xl mb-3">Basic Information</div>
@@ -49,7 +49,7 @@ export const StyleDetailPage = () => {
               <div class="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Style Name</label>
                 <input
-                  placeholder="Style Name"
+                  placeholder="Enter Style's Name"
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 w-52 px-4"
                   required="required"
                   type="text"
@@ -66,27 +66,11 @@ export const StyleDetailPage = () => {
                 </select>
                 <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>
-              <div class="mb-3 space-y-2 w-full text-xs">
-                <label className="font-semibold text-gray-600 py-2">Active snapshot</label>
-                <select
-                  className="w-full border border-gray-300 rounded-lg text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
-                  <option>Active</option>
-                  <option>Deactive</option>
-                </select>
-                <p className="text-red text-xs hidden">Please fill out this field.</p>
-              </div>
             </div>
           </div>
           <button
             className="text-grey-lighter font-bold py-2 px-3 mt-4 text-white rounded text-sm bg-green-500 hover:bg-green-700 shadow-lg w-1/4">Save</button>
         </div>
-
-        <div className="font-medium text-xl mb-3 mt-10">Style's Snapshot List</div>
-        <div className="my-4 flex justify-end">
-          <button
-            className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-400 hover:bg-blue-600 shadow">Upload New Snapshot</button>
-        </div>
-        <SnapshotTable styles={styles}/>
       </div>
     </div>
   );
