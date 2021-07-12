@@ -1,1 +1,1 @@
-export const MAIN_SERVER = 'http://192.168.1.26:3000'
+export const MAIN_SERVER = 'http://localhost:3001'
