@@ -6,3 +6,17 @@ export const fetchAllStyles = async () => {
     const response = await axios.get(ENDPOINT_URL)
     return response.data
 }
+
+export const uploadSnapshot = async ({snapshotName, styleRoutingKey, styleId, snapshotFile}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/snapshots`
+    let formData = new FormData();
+    formData.append("snapshotName", snapshotName)
+    formData.append("routingKey", styleRoutingKey)
+    formData.append("styleId", styleId)
+    formData.append("snapshot", snapshotFile)
+    return axios.post(ENDPOINT_URL, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

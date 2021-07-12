@@ -1,24 +1,34 @@
 import React, {useState, useEffect} from 'react'
 import {SnapshotTable} from '../components/SnapshotTable'
-import {fetchAllStyles} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory, useParams} from "react-router-dom";
+import { uploadSnapshot } from '../apis/snapshots';
+import { fetchStyleDetail } from '../apis/styles'
 
-export const UploadNewSnapshotPage = () => {
-  const [styles,
-    setStyles] = useState([])
+export const UploadNewSnapshotPage = (props) => {
+  const {styleRoutingKey} = props
   const history = useHistory();
   const {id} = useParams();
-  const [selectedFile,
-    setSelectedFile] = useState(null)
+  const [style, setStyle] = useState({})
+  const [snapshotName, setSnapshotName] = useState('')
+  const [selectedFile, setSelectedFile] = useState(null)
 
   useEffect(() => {
-    fetchAllStyles().then(styles => {
-      setStyles(styles)
-    }).catch(err => {
-      console.log(err)
+    fetchStyleDetail(id).then(data => {
+      setStyle(data)
     })
   }, [])
+  
+  const handleUploadSnapshot = async () => {
+    uploadSnapshot({
+      snapshotName, 
+      snapshotFile: selectedFile, 
+      styleRoutingKey: style.routingKey,
+      styleId: id
+    }).then(() => {
+      history.push(`/styles/${id}`)
+    })
+  }
 
   return (
     <div className="flex h-screen">
@@ -41,6 +51,8 @@ export const UploadNewSnapshotPage = () => {
               <div class="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Snapshot Name</label>
                 <input
+                  value={snapshotName}
+                  onChange={(e) => setSnapshotName(e.target.value)}
                   placeholder="Enter Snapshot's Name"
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 w-52 px-4"
                   required="required"
@@ -88,6 +100,7 @@ export const UploadNewSnapshotPage = () => {
                 </div>
               </div>
               <button
+                onClick={handleUploadSnapshot}
                 className="text-grey-lighter font-bold py-2 px-3 mt-4 text-white rounded text-sm bg-green-500 hover:bg-green-700 shadow-lg w-full">Save</button>
             </div>
 

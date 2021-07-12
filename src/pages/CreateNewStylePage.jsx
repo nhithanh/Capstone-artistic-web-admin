@@ -9,7 +9,9 @@ export const CreateNewStylePage = () => {
   const history = useHistory();
 
   const handleCreate = () => {
-    createNewStyle({styleName, isActive: false, iconFile})
+    createNewStyle({styleName, isActive: false, iconFile}).then(rs => {
+      history.push("/")
+    })
   }
 
   return (
