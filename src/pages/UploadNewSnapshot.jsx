@@ -31,7 +31,7 @@ export const UploadNewSnapshotPage = () => {
     fetchStyleDetail(id).then(data => {
       setStyle(data)
     })
-  }, [])
+  }, [id])
 
   const handleUploadSnapshot = async() => {
     setLoading(true)
@@ -58,6 +58,7 @@ export const UploadNewSnapshotPage = () => {
       <div className="w-3/5 pt-5">
         <div className="flex items-center mb-6">
           <img
+            alt="return icon"
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
             onClick={() => history.push(`/styles/${id}`)}
             className="h-6 w-6 mr-5 cursor-pointer"/>

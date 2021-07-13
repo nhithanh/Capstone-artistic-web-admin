@@ -25,3 +25,26 @@ export const createNewStyle = async({styleName, iconFile, isActive}) => {
         }
     })
 }
+
+export const updateStyle = async({id, styleName, isActive, activeSnapshotId}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/styles/${id}`
+    const data = {
+        styleName,
+        isActive,
+        activeSnapshotId
+    }
+    return axios.put(ENDPOINT_URL, data)
+}
+
+export const updateStyleWithIconChange = async({id, styleName, iconFile, isActive, activeSnapshotId}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/styles/${id}`
+    let formData = new FormData();
+    formData.append("styleName", styleName)
+    formData.append("icon", iconFile)
+    formData.append("isActive", isActive)
+    return axios.post(ENDPOINT_URL, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

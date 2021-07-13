@@ -5,7 +5,7 @@ export const NavMenu = (props) => {
   const {activePage} = props
 
   const renderItem = (title, handleClick) => {
-    if (title == activePage) {
+    if (title === activePage) {
       return (
         <li className="my-px bg-gray-50 rounded">
           <span

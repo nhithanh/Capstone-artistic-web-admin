@@ -1,20 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import {SnapshotTable} from '../components/SnapshotTable'
-import {fetchStyleDetail} from '../apis/styles'
+import {fetchStyleDetail, updateStyle, updateStyleWithIconChange} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory, useParams} from "react-router-dom";
 import {fetchAllSnapshots} from '../apis/snapshots';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
-import { confirmAlert } from 'react-confirm-alert';
 
 export const StyleDetailPage = () => {
   const history = useHistory();
   const {id} = useParams();
   const [activeSnapshotId,
     setActiveSnapshotId] = useState("")
-  const [styleDetai,
-    setStyleDetail] = useState({})
   const [iconFile,
     setIconFile] = useState(null)
   const [iconURL,
@@ -34,45 +31,33 @@ export const StyleDetailPage = () => {
     isStopped: !loading
   };
 
-  
-  const showDeleteAlert = () => {
-    confirmAlert({
-      overlayClassName: "darken",
-      customUI: ({ onClose }) => {
-        return (
-          <div className="py-6 px-12 rounded-lg shadow-xl bg-white">
-            <p className="font-bold text-xl text-center">Confirm Delete</p>
-            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure <br/> to delete snapshot <strong>{"Udnie"}</strong> </p>
-            <div className="flex items-center justify-center mt-4">
-              <button onClick={() => {
-                onClose()
-              }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
-                Delete
-              </button>
-              <button onClick={() => onClose()} className="bg-gray-800 px-4 py-2 rounded-lg shadow-lg text-white text-base mx-2 font-medium">Cancel</button>
-            </div>
-          </div>
-        )
-      }
-    })
-  }
-
   useEffect(() => {
     setLoading(true)
-    fetchStyleDetail(id).then(data => {
-      setStyleDetail(data)
-      setIconURL(data.iconURL)
-      setStyleName(data.styleName)
-      setStatus(data.isActive)
-      setActiveSnapshotId(activeSnapshotId)
-    }).catch(err => {
-      console.log(err)
-    });
     fetchAllSnapshots(id).then(data => {
       setSnapshots(data)
+      fetchStyleDetail(id).then(data => {
+        setIconURL(data.iconURL)
+        setStyleName(data.styleName)
+        setStatus(data.isActive)
+        setActiveSnapshotId(data.activeSnapshotId)
+        setLoading(false)
+      }).catch(err => {
+        setLoading(false)
+        console.log(err)
+      });
+    }).catch(err => {
       setLoading(false)
     })
   }, [])
+
+  const handleUpdateStyle = () => {
+    setLoading(true)
+    if (iconFile) {
+      updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId}).then(() => setLoading(false))
+    } else {
+      updateStyle({id, styleName, isActive: status, activeSnapshotId}).then(() => setLoading(false))
+    }
+  }
 
   return (
     <div className="flex h-screen">
@@ -91,6 +76,7 @@ export const StyleDetailPage = () => {
       <div className="w-3/5 pt-5">
         <div className="flex items-center mb-6">
           <img
+            alt="Go back icon"
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
             onClick={() => history.push('/')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
@@ -126,6 +112,7 @@ export const StyleDetailPage = () => {
                 <label className="font-semibold text-gray-600 py-2">Status</label>
                 <select
                   value={status}
+                  onChange={(e) => setStatus(e.target.value)}
                   className="w-full border border-gray-300 rounded-lg text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                   <option value={true}>Active</option>
                   <option value={false}>Deactive</option>
@@ -136,8 +123,10 @@ export const StyleDetailPage = () => {
                 <label className="font-semibold text-gray-600 py-2">Active snapshot</label>
                 <select
                   value={activeSnapshotId}
+                  onChange={(e) => {
+                  setActiveSnapshotId(e.target.value)
+                }}
                   className="w-full border border-gray-300 rounded-lg text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
-                  <option disabled={true} value="">Select active snapshot</option>
                   {snapshots.map(snapshot => {
                     return <option value={snapshot.id}>{snapshot.name}</option>
                   })
@@ -148,6 +137,7 @@ export const StyleDetailPage = () => {
             </div>
           </div>
           <button
+            onClick={() => handleUpdateStyle()}
             className="text-grey-lighter font-bold py-2 px-3 mt-4 text-white rounded text-sm bg-green-500 hover:bg-green-700 shadow-lg w-1/4">Save</button>
         </div>
 

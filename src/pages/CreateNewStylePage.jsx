@@ -45,6 +45,7 @@ export const CreateNewStylePage = () => {
       <div className="w-3/5 pt-5">
         <div className="flex items-center mb-6">
           <img
+            alt="Go back icon"
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
             onClick={() => history.push('/')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
@@ -56,11 +57,12 @@ export const CreateNewStylePage = () => {
           <div className="flex">
             <div>
               <img
+                alt="Style Icon"
                 className="rounded-lg shadow-2xl h-44"
                 src={iconFile
                 ? URL.createObjectURL(iconFile)
                 : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600." +
-                  "jpg"}></img>
+                  "jpg"}/>
 
               <div class="mt-3 space-y-2 w-full text-xs flex items-end">
                 <label className="font-semibold text-gray-600 py-2">Style Icon:</label>

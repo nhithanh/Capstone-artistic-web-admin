@@ -44,7 +44,7 @@ export const StylesTable = (props) => {
         <tr className="hover:bg-gray-50" key={id}>
           <td className="py-4 border-b border-grey-light">
             <div className="flex justify-center">
-              <img className="w-14 h-14 rounded-xl shadow" src={iconURL}/>
+              <img alt="Style Icon" className="w-14 h-14 rounded-xl shadow" src={iconURL}/>
             </div>
           </td>
           <td className="text-center border-b border-grey-light">{styleName}</td>
