@@ -15,7 +15,6 @@ export const StyleListPage = () => {
     animationData: animationData,
     isStopped: !loading
   };
-  
 
   useEffect(() => {
     setLoading(true)

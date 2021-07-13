@@ -6,6 +6,7 @@ import {useHistory, useParams} from "react-router-dom";
 import {fetchAllSnapshots} from '../apis/snapshots';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
+import { confirmAlert } from 'react-confirm-alert';
 
 export const StyleDetailPage = () => {
   const history = useHistory();
@@ -32,6 +33,29 @@ export const StyleDetailPage = () => {
     animationData: animationData,
     isStopped: !loading
   };
+
+  
+  const showDeleteAlert = () => {
+    confirmAlert({
+      overlayClassName: "darken",
+      customUI: ({ onClose }) => {
+        return (
+          <div className="py-6 px-12 rounded-lg shadow-xl bg-white">
+            <p className="font-bold text-xl text-center">Confirm Delete</p>
+            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure <br/> to delete snapshot <strong>{"Udnie"}</strong> </p>
+            <div className="flex items-center justify-center mt-4">
+              <button onClick={() => {
+                onClose()
+              }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
+                Delete
+              </button>
+              <button onClick={() => onClose()} className="bg-gray-800 px-4 py-2 rounded-lg shadow-lg text-white text-base mx-2 font-medium">Cancel</button>
+            </div>
+          </div>
+        )
+      }
+    })
+  }
 
   useEffect(() => {
     setLoading(true)

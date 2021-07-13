@@ -1,11 +1,34 @@
 import {useHistory} from "react-router-dom";
 import moment from 'moment'
+import { confirmAlert } from 'react-confirm-alert';
+
 
 export const StylesTable = (props) => {
   const history = useHistory();
   const {styles} = props
   const handleItemClick = (styleId) => {
     history.push(`/styles/${styleId}`)
+  }
+  const showDeleteAlert = (style) => {
+    confirmAlert({
+      overlayClassName: "darken",
+      customUI: ({ onClose }) => {
+        return (
+          <div className="py-6 px-12 rounded-lg shadow-xl bg-white">
+            <p className="font-bold text-xl text-center">Confirm Delete</p>
+            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure <br/> to delete style <span className="text-base font-medium">{style.styleName}</span> </p>
+            <div className="flex items-center justify-center mt-4">
+              <button onClick={() => {
+                onClose()
+              }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
+                Delete
+              </button>
+              <button onClick={() => onClose()} className="bg-gray-800 px-4 py-2 rounded-lg shadow-lg text-white text-base mx-2 font-medium">Cancel</button>
+            </div>
+          </div>
+        )
+      }
+    })
   }
   const renderTableItem = () => {
     return styles.map(style => {
@@ -45,6 +68,9 @@ export const StylesTable = (props) => {
                 onClick={() => handleItemClick(id)}
                 className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-blue-500 hover:bg-blue-700">View</button>
               <button
+                onClick={() => {
+                  showDeleteAlert(style)
+                }} 
                 className="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-red-400 text-white hover:bg-red-600">Delete</button>
             </div>
 

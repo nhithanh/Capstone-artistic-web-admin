@@ -13,6 +13,8 @@ export const UploadNewSnapshotPage = () => {
     setStyle] = useState({})
   const [snapshotName,
     setSnapshotName] = useState('')
+  const [snapshotDescription,
+    setSnapshotDescription] = useState('')
   const [selectedFile,
     setSelectedFile] = useState(null)
   const [loading,
@@ -73,6 +75,19 @@ export const UploadNewSnapshotPage = () => {
                   onChange={(e) => setSnapshotName(e.target.value)}
                   placeholder="Enter Snapshot's Name"
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 w-52 px-4"
+                  required="required"
+                  type="text"
+                  name="integration[shop_name]"
+                  id="integration_shop_name"/>
+                <p className="text-red text-xs hidden">Please fill out this field.</p>
+              </div>
+              <div class="mb-3 space-y-2 w-full text-xs">
+                <label className="font-semibold text-gray-600 py-2">Brief information</label>
+                <textarea
+                  value={snapshotDescription}
+                  onChange={(e) => setSnapshotDescription(e.target.value)}
+                  placeholder="Enter Snapshot's brief information"
+                  className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg pt-2 h-32 w-52 px-4"
                   required="required"
                   type="text"
                   name="integration[shop_name]"
