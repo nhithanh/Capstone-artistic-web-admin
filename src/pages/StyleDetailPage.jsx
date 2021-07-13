@@ -3,29 +3,64 @@ import {SnapshotTable} from '../components/SnapshotTable'
 import {fetchStyleDetail} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory, useParams} from "react-router-dom";
+import {fetchAllSnapshots} from '../apis/snapshots';
+import Lottie from 'react-lottie';
+import animationData from '../assets/loading.json'
 
 export const StyleDetailPage = () => {
   const history = useHistory();
-  const { id } = useParams();
-  const [styleDetai, setStyleDetail] = useState({})
-  const [iconFile, setIconFile] = useState(null) 
-  const [iconURL, setIconURL] = useState(null)
-  const [styleName, setStyleName] = useState(null)
-  const [status, setStatus] = useState(true)
+  const {id} = useParams();
+  const [activeSnapshotId,
+    setActiveSnapshotId] = useState("")
+  const [styleDetai,
+    setStyleDetail] = useState({})
+  const [iconFile,
+    setIconFile] = useState(null)
+  const [iconURL,
+    setIconURL] = useState(null)
+  const [styleName,
+    setStyleName] = useState(null)
+  const [status,
+    setStatus] = useState(true)
+  const [snapshots,
+    setSnapshots] = useState([])
+  const [loading,
+    setLoading] = useState(false)
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    isStopped: !loading
+  };
 
   useEffect(() => {
+    setLoading(true)
     fetchStyleDetail(id).then(data => {
       setStyleDetail(data)
       setIconURL(data.iconURL)
       setStyleName(data.styleName)
       setStatus(data.isActive)
+      setActiveSnapshotId(activeSnapshotId)
     }).catch(err => {
       console.log(err)
+    });
+    fetchAllSnapshots(id).then(data => {
+      setSnapshots(data)
+      setLoading(false)
     })
   }, [])
 
   return (
     <div className="flex h-screen">
+      <div
+        className={loading
+        ? "w-full flex items-center h-full absolute bg-white"
+        : "w-full flex items-center h-full absolute bg-white hidden"}
+        style={{
+        backgroundColor: "rgba(0, 0, 0, 0.85)"
+      }}>
+        <Lottie options={defaultOptions} height={100} width={100}/>
+      </div>
       <div className="w-1/5">
         <NavMenu activePage="Style List"/>
       </div>
@@ -42,9 +77,7 @@ export const StyleDetailPage = () => {
         <div>
           <div className="flex">
             <div>
-              <img
-                className="rounded-lg shadow-2xl h-44"
-                src={iconURL}></img>
+              <img className="rounded-lg shadow-2xl h-44" src={iconURL}></img>
 
               <div class="mt-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Style Icon:</label>
@@ -78,9 +111,13 @@ export const StyleDetailPage = () => {
               <div class="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Active snapshot</label>
                 <select
+                  value={activeSnapshotId}
                   className="w-full border border-gray-300 rounded-lg text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
-                  <option>Active</option>
-                  <option>Deactive</option>
+                  <option disabled={true} value="">Select active snapshot</option>
+                  {snapshots.map(snapshot => {
+                    return <option value={snapshot.id}>{snapshot.name}</option>
+                  })
+}
                 </select>
                 <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>
@@ -92,9 +129,11 @@ export const StyleDetailPage = () => {
 
         <div className="font-medium text-xl mb-3 mt-10">Style's Snapshot List</div>
         <div className="my-4 flex justify-end">
-          <button onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
+          <button
+            onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-400 hover:bg-blue-600 shadow">Upload New Snapshot</button>
         </div>
+        <SnapshotTable snapshots={snapshots}/>
       </div>
     </div>
   );

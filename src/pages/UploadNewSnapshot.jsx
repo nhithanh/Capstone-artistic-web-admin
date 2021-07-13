@@ -1,37 +1,55 @@
 import React, {useState, useEffect} from 'react'
-import {SnapshotTable} from '../components/SnapshotTable'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory, useParams} from "react-router-dom";
-import { uploadSnapshot } from '../apis/snapshots';
-import { fetchStyleDetail } from '../apis/styles'
+import {uploadSnapshot} from '../apis/snapshots';
+import {fetchStyleDetail} from '../apis/styles'
+import Lottie from 'react-lottie';
+import animationData from '../assets/loading.json'
 
-export const UploadNewSnapshotPage = (props) => {
-  const {styleRoutingKey} = props
+export const UploadNewSnapshotPage = () => {
   const history = useHistory();
   const {id} = useParams();
-  const [style, setStyle] = useState({})
-  const [snapshotName, setSnapshotName] = useState('')
-  const [selectedFile, setSelectedFile] = useState(null)
+  const [style,
+    setStyle] = useState({})
+  const [snapshotName,
+    setSnapshotName] = useState('')
+  const [selectedFile,
+    setSelectedFile] = useState(null)
+  const [loading,
+    setLoading] = useState(false)
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    isStopped: !loading
+  };
 
   useEffect(() => {
     fetchStyleDetail(id).then(data => {
       setStyle(data)
     })
   }, [])
-  
-  const handleUploadSnapshot = async () => {
-    uploadSnapshot({
-      snapshotName, 
-      snapshotFile: selectedFile, 
-      styleRoutingKey: style.routingKey,
-      styleId: id
-    }).then(() => {
+
+  const handleUploadSnapshot = async() => {
+    setLoading(true)
+    uploadSnapshot({snapshotName, snapshotFile: selectedFile, styleRoutingKey: style.routingKey, styleId: id}).then(() => {
+      setLoading(false)
       history.push(`/styles/${id}`)
     })
   }
 
   return (
     <div className="flex h-screen">
+      <div
+        className={loading
+        ? "w-full flex items-center h-full absolute bg-white"
+        : "w-full flex items-center h-full absolute bg-white hidden"}
+        style={{
+        backgroundColor: "rgba(0, 0, 0, 0.85)"
+      }}>
+        <Lottie options={defaultOptions} height={100} width={100}/>
+      </div>
       <div className="w-1/5">
         <NavMenu activePage="Style List"/>
       </div>
@@ -86,7 +104,7 @@ export const UploadNewSnapshotPage = (props) => {
                               Select a file from your computer
                             </p>
                           )
-                      }
+}
                       </div>
                       <input
                         onChange={(event) => {

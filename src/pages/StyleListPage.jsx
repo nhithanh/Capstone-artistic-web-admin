@@ -2,21 +2,43 @@ import React, {useState, useEffect} from 'react'
 import {StylesTable} from '../components/StylesTable'
 import {fetchAllStyles} from '../apis/styles'
 import { NavMenu } from '../components/NavMenu'
+import Lottie from 'react-lottie';
+import animationData from '../assets/loading.json'
 
 export const StyleListPage = () => {
-  const [styles,
-    setStyles] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [styles, setStyles] = useState([])
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    isStopped: !loading
+  };
+  
 
   useEffect(() => {
+    setLoading(true)
     fetchAllStyles().then(styles => {
       setStyles(styles)
+      setLoading(false)
     }).catch(err => {
       console.log(err)
+      setLoading(false)
     })
   }, [])
 
+  
+
   return (
     <div className="flex h-screen">
+      <div className={loading ? "w-full flex items-center h-full absolute bg-white" : "w-full flex items-center h-full absolute bg-white hidden"} 
+      style={{backgroundColor: "rgba(0, 0, 0, 0.85)"}}>
+        <Lottie options={defaultOptions}
+          height={100}
+          width={100}
+          />
+      </div>
       <div className="w-1/5">
         <NavMenu activePage="Style List"/>
       </div>

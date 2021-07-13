@@ -2,20 +2,43 @@ import React, {useState} from 'react'
 import {createNewStyle} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
+import Lottie from 'react-lottie';
+import animationData from '../assets/loading.json'
 
 export const CreateNewStylePage = () => {
-  const [styleName, setStyleName] = useState('')
-  const [iconFile, setIconFile] = useState(null)
+  const [styleName,
+    setStyleName] = useState('')
+  const [iconFile,
+    setIconFile] = useState(null)
   const history = useHistory();
+  const [loading,
+    setLoading] = useState(false)
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    isStopped: !loading
+  };
 
   const handleCreate = () => {
+    setLoading(true)
     createNewStyle({styleName, isActive: false, iconFile}).then(rs => {
+      setLoading(false)
       history.push("/")
     })
   }
 
   return (
     <div className="flex h-screen">
+      <div
+        className={loading
+        ? "w-full flex items-center h-full absolute bg-white"
+        : "w-full flex items-center h-full absolute bg-white hidden"}
+        style={{
+        backgroundColor: "rgba(0, 0, 0, 0.85)"
+      }}>
+        <Lottie options={defaultOptions} height={100} width={100}/>
+      </div>
       <div className="w-1/5">
         <NavMenu activePage="Create New Style"/>
       </div>
@@ -34,22 +57,24 @@ export const CreateNewStylePage = () => {
             <div>
               <img
                 className="rounded-lg shadow-2xl h-44"
-                src={iconFile ? URL.createObjectURL(iconFile) : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg"}></img>
+                src={iconFile
+                ? URL.createObjectURL(iconFile)
+                : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600." +
+                  "jpg"}></img>
 
               <div class="mt-3 space-y-2 w-full text-xs flex items-end">
                 <label className="font-semibold text-gray-600 py-2">Style Icon:</label>
                 <div
                   className="relative text-grey-lighter font-bold py-1 px-3 mt-4 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 ml-3">
-                    <input
-                      onChange={(event) => {
-                        console.log(event.target.files[0])
-                        setIconFile(event.target.files[0])
-                      }}
-                      type="file"
-                      accept="image/png, image/jpeg"
-                      class="opacity-0 w-full h-full absolute"/>
-                    Browse
-                  </div>
+                  <input
+                    onChange={(event) => {
+                    setIconFile(event.target.files[0])
+                  }}
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    class="opacity-0 w-full h-full absolute"/>
+                  Browse
+                </div>
               </div>
             </div>
             <div className="ml-5 w-1/3">

@@ -1,8 +1,8 @@
 import axios from "axios"
 import {MAIN_SERVER} from "./config"
 
-export const fetchAllStyles = async () => {
-    const ENDPOINT_URL = `${MAIN_SERVER}/styles`
+export const fetchAllSnapshots = async (id) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/styles/${id}/snapshots`
     const response = await axios.get(ENDPOINT_URL)
     return response.data
 }

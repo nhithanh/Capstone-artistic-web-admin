@@ -1,14 +1,16 @@
+import moment from 'moment'
+
 export const SnapshotTable = (props) => {
 
-    const {styles} = props
+    const {snapshots} = props
 
     const renderTableItem = () => {
-      return styles.map(style => {
-        const {styleName, iconURL, id} = style
+      return snapshots.map(style => {
+        const {name, id, createdAt} = style
         return (
           <tr className="hover:bg-gray-50" key={id}>
-            <td className="text-center border-b border-grey-light">{styleName}</td>
-            <td className="text-center border-b border-grey-light">12/07/2021</td>
+            <td className="text-center border-b border-grey-light">{name}</td>
+            <td className="text-center border-b border-grey-light">{moment(createdAt).format('DD/MM/YYYY [at] h:mm:ss a')}</td>
             <td className="text-center border-b border-grey-light">12/07/2021</td>
             <td className="py-4 border-b border-grey-light">
               <div className="flex justify-center">
