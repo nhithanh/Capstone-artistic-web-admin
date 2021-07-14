@@ -9,6 +9,7 @@ import animationData from '../assets/loading.json'
 import { deleteSnapshot } from '../apis/snapshots'
 import {ShowcaseTable} from '../components/ShowcasesTable'
 import { fetchAllShowcases } from '../apis/showcases';
+import { deleteShowcase } from '../apis/showcases'
 
 export const StyleDetailPage = () => {
   const history = useHistory();
@@ -68,6 +69,16 @@ export const StyleDetailPage = () => {
     if(response.id !== undefined) {
         const newSnapshots = snapshots.filter(snapshot => snapshot.id !== response.id) 
         setSnapshots(newSnapshots)
+    }
+    setLoading(false)
+  }
+
+  const handleDeleteShowcase = async ({showcaseId}) => {
+    setLoading(true)
+    const response = await deleteShowcase({showcaseId})
+    if(response.id !== undefined) {
+        const newShowCases = showcases.filter(showcase => showcase.id !== response.id) 
+        setShowcases(newShowCases)
     }
     setLoading(false)
   }
@@ -168,7 +179,7 @@ export const StyleDetailPage = () => {
             onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Showcase Image</button>
         </div>
-        <ShowcaseTable showcases={showcases}/>
+        <ShowcaseTable showcases={showcases} handleDeleteShowcase = {handleDeleteShowcase}/>
         <div className="mb-20"></div>
       </div>
     </div>

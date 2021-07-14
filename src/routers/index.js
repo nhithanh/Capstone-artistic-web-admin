@@ -1,24 +1,28 @@
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import {CreateNewStylePage} from "../pages/CreateNewStylePage";
-import {StyleDetailPage} from "../pages/StyleDetailPage";
-import {StyleListPage} from "../pages/StyleListPage";
-import {UploadNewSnapshotPage} from "../pages/UploadNewSnapshot";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { CreateNewStylePage } from "../pages/CreateNewStylePage";
+import { StyleDetailPage } from "../pages/StyleDetailPage";
+import { StyleListPage } from "../pages/StyleListPage";
+import { UploadNewSnapshotPage } from "../pages/UploadNewSnapshot";
+import { LoginPage } from '../pages/LoginPage'
 export default function App() {
   return (
     <Router>
       <Switch>
         <Route path="/styles/:id/upload-snapshot">
-          <UploadNewSnapshotPage/>
+          <UploadNewSnapshotPage />
         </Route>
         <Route path="/styles/:id">
-          <StyleDetailPage/>
+          <StyleDetailPage />
         </Route>
         <Route path="/create-new-style">
-          <CreateNewStylePage/>
+          <CreateNewStylePage />
         </Route>
-        <Route path="/">
-          <StyleListPage/>
+        <Route path="/styles">
+          <StyleListPage />
+        </Route>
+
+        <Route exact path="/">
+          <LoginPage/>
         </Route>
 
       </Switch>
