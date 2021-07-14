@@ -20,3 +20,9 @@ export const uploadSnapshot = async ({snapshotName, styleRoutingKey, styleId, sn
         }
     })
 }
+
+export const deleteSnapshot = async ({snapshotId}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/snapshots/${snapshotId}`
+    const response = await axios.delete(ENDPOINT_URL)
+    return response.data
+}

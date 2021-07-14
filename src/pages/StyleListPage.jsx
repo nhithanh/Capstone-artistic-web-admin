@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {StylesTable} from '../components/StylesTable'
-import {fetchAllStyles} from '../apis/styles'
+import {fetchAllStyles, deleteStyle} from '../apis/styles'
 import { NavMenu } from '../components/NavMenu'
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import { useHistory } from 'react-router-dom';
-
 export const StyleListPage = () => {
   const [loading, setLoading] = useState(false)
   const [styles, setStyles] = useState([])
@@ -29,6 +28,16 @@ export const StyleListPage = () => {
     })
   }, [])
 
+
+  const handleDeleteStyle = async ({styleId}) => {
+    setLoading(true)
+    const response = await deleteStyle({styleId})
+    if(response.id) {
+      const newStyleList = styles.filter(style => style.id !== response.id)
+      setStyles(newStyleList)
+    }
+    setLoading(false)
+  }
   
 
   return (
@@ -52,7 +61,7 @@ export const StyleListPage = () => {
             }}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-400 hover:bg-blue-600 shadow">Add New Style</button>
         </div>
-        <StylesTable styles={styles}/>
+        <StylesTable styles={styles} handleDeleteStyle = {handleDeleteStyle}/>
       </div>
     </div>
 

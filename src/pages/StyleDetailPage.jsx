@@ -6,24 +6,19 @@ import {useHistory, useParams} from "react-router-dom";
 import {fetchAllSnapshots} from '../apis/snapshots';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
-
+import { deleteSnapshot } from '../apis/snapshots'
 export const StyleDetailPage = () => {
   const history = useHistory();
   const {id} = useParams();
-  const [activeSnapshotId,
-    setActiveSnapshotId] = useState("")
-  const [iconFile,
-    setIconFile] = useState(null)
-  const [iconURL,
-    setIconURL] = useState(null)
-  const [styleName,
-    setStyleName] = useState(null)
-  const [status,
-    setStatus] = useState(true)
-  const [snapshots,
-    setSnapshots] = useState([])
-  const [loading,
-    setLoading] = useState(false)
+  const [activeSnapshotId, setActiveSnapshotId] = useState("")
+  const [iconFile, setIconFile] = useState(null)
+  const [iconURL, setIconURL] = useState(null)
+  const [styleName, setStyleName] = useState(null)
+  const [status, setStatus] = useState(true)
+  const [snapshots, setSnapshots] = useState([])
+  const [snapshotError, setSnapshotError] = useState('')
+  const [loading, setLoading] = useState(false)
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -57,6 +52,17 @@ export const StyleDetailPage = () => {
     } else {
       updateStyle({id, styleName, isActive: status, activeSnapshotId}).then(() => setLoading(false))
     }
+  }
+
+
+  const handleDeleteSnapshot = async ({snapshotId}) => {
+    setLoading(true)
+    const response = await deleteSnapshot({snapshotId})
+    if(response.id !== undefined) {
+        const newSnapshots = snapshots.filter(snapshot => snapshot.id !== response.id) 
+        setSnapshots(newSnapshots)
+    }
+    setLoading(false)
   }
 
   return (
@@ -147,7 +153,7 @@ export const StyleDetailPage = () => {
             onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-400 hover:bg-blue-600 shadow">Upload New Snapshot</button>
         </div>
-        <SnapshotTable snapshots={snapshots}/>
+        <SnapshotTable snapshots={snapshots} handleDeleteSnapshot = {handleDeleteSnapshot} activeSnapshotId = {activeSnapshotId}/>
       </div>
     </div>
   );

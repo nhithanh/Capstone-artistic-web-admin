@@ -5,7 +5,7 @@ import { confirmAlert } from 'react-confirm-alert';
 
 export const StylesTable = (props) => {
   const history = useHistory();
-  const {styles} = props
+  const {styles, handleDeleteStyle} = props
   const handleItemClick = (styleId) => {
     history.push(`/styles/${styleId}`)
   }
@@ -18,8 +18,9 @@ export const StylesTable = (props) => {
             <p className="font-bold text-xl text-center">Confirm Delete</p>
             <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure <br/> to delete style <span className="text-base font-medium">{style.styleName}</span> </p>
             <div className="flex items-center justify-center mt-4">
-              <button onClick={() => {
+              <button onClick={async () => {
                 onClose()
+                handleDeleteStyle({styleId: style.id})
               }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
                 Delete
               </button>
@@ -60,8 +61,8 @@ export const StylesTable = (props) => {
               )
 }
           </td>
-          <td className="text-center border-b border-grey-light">{moment(createdAt).format('DD/MM/YYYY [at] h:mm:ss a')}</td>
-          <td className="text-center border-b border-grey-light">{moment(updatedAt).format('DD/MM/YYYY [at] h:mm:ss a')}</td>
+          <td className="text-center border-b border-grey-light">{moment(createdAt).format('DD/MM/YYYY [at] h:mm:ss A')}</td>
+          <td className="text-center border-b border-grey-light">{moment(updatedAt).format('DD/MM/YYYY [at] h:mm:ss A')}</td>
           <td className="py-4 border-b border-grey-light">
             <div className="flex justify-center">
               <button

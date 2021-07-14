@@ -48,3 +48,9 @@ export const updateStyleWithIconChange = async({id, styleName, iconFile, isActiv
         }
     })
 }
+
+export const deleteStyle = async ({styleId}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/styles/${styleId}`
+    const response = await axios.delete(ENDPOINT_URL)
+    return response.data
+}
