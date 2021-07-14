@@ -7,6 +7,9 @@ import {fetchAllSnapshots} from '../apis/snapshots';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import { deleteSnapshot } from '../apis/snapshots'
+import {ShowcaseTable} from '../components/ShowcasesTable'
+import { fetchAllShowcases } from '../apis/showcases';
+
 export const StyleDetailPage = () => {
   const history = useHistory();
   const {id} = useParams();
@@ -18,6 +21,7 @@ export const StyleDetailPage = () => {
   const [snapshots, setSnapshots] = useState([])
   const [snapshotError, setSnapshotError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showcases, setShowcases] = useState([])
 
   const defaultOptions = {
     loop: true,
@@ -28,6 +32,9 @@ export const StyleDetailPage = () => {
 
   useEffect(() => {
     setLoading(true)
+    fetchAllShowcases(id).then(showcases => {
+      setShowcases(showcases)
+    })
     fetchAllSnapshots(id).then(data => {
       setSnapshots(data)
       fetchStyleDetail(id).then(data => {
@@ -66,7 +73,7 @@ export const StyleDetailPage = () => {
   }
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       <div
         className={loading
         ? "w-full flex items-center h-full absolute bg-white"
@@ -76,9 +83,10 @@ export const StyleDetailPage = () => {
       }}>
         <Lottie options={defaultOptions} height={100} width={100}/>
       </div>
-      <div className="w-1/5">
+      <div className="w-1/5 fixed h-screen">
         <NavMenu activePage="Style List"/>
       </div>
+      <div className="w-1/5"></div>
       <div className="w-3/5 pt-5">
         <div className="flex items-center mb-6">
           <img
@@ -148,12 +156,20 @@ export const StyleDetailPage = () => {
         </div>
 
         <div className="font-medium text-xl mb-3 mt-10">Style's Snapshot List</div>
-        <div className="my-4 flex justify-end">
+        <div className="my-4 flex">
           <button
             onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
-            className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-400 hover:bg-blue-600 shadow">Upload New Snapshot</button>
+            className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Snapshot</button>
         </div>
         <SnapshotTable snapshots={snapshots} handleDeleteSnapshot = {handleDeleteSnapshot} activeSnapshotId = {activeSnapshotId}/>
+        <div className="font-medium text-xl mb-3 mt-10">Style's Showcase List</div>
+        <div className="my-4 flex">
+          <button
+            onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
+            className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Showcase Image</button>
+        </div>
+        <ShowcaseTable showcases={showcases}/>
+        <div className="mb-20"></div>
       </div>
     </div>
   );
