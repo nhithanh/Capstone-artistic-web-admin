@@ -20,7 +20,6 @@ export const StyleDetailPage = () => {
   const [styleName, setStyleName] = useState(null)
   const [status, setStatus] = useState(true)
   const [snapshots, setSnapshots] = useState([])
-  const [snapshotError, setSnapshotError] = useState('')
   const [loading, setLoading] = useState(false)
   const [showcases, setShowcases] = useState([])
 
@@ -129,8 +128,7 @@ export const StyleDetailPage = () => {
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 w-52 px-4"
                   required="required"
                   type="text"
-                  name="integration[shop_name]"
-                  id="integration_shop_name"/>
+                  />
                 <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>
               <div className="mb-3 space-y-2 w-full text-xs">
@@ -176,7 +174,7 @@ export const StyleDetailPage = () => {
         <div className="font-medium text-xl mb-3 mt-10">Style's Showcase List</div>
         <div className="my-4 flex">
           <button
-            onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
+            onClick={() => history.push(`/styles/${id}/upload-showcase`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Showcase Image</button>
         </div>
         <ShowcaseTable showcases={showcases} handleDeleteShowcase = {handleDeleteShowcase}/>
