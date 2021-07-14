@@ -32,7 +32,7 @@ export const CreateNewStylePage = () => {
     <div className="flex h-screen">
       <div
         className={loading
-        ? "w-full flex items-center h-full absolute bg-white"
+        ? "w-full flex items-center h-full absolute bg-white z-50"
         : "w-full flex items-center h-full absolute bg-white hidden"}
         style={{
         backgroundColor: "rgba(0, 0, 0, 0.85)"

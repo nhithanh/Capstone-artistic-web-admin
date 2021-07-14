@@ -6,22 +6,30 @@ import {useHistory, useParams} from "react-router-dom";
 import {fetchAllSnapshots} from '../apis/snapshots';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
-import { deleteSnapshot } from '../apis/snapshots'
+import {deleteSnapshot} from '../apis/snapshots'
 import {ShowcaseTable} from '../components/ShowcasesTable'
-import { fetchAllShowcases } from '../apis/showcases';
-import { deleteShowcase } from '../apis/showcases'
+import {fetchAllShowcases} from '../apis/showcases';
+import {deleteShowcase} from '../apis/showcases'
 
 export const StyleDetailPage = () => {
   const history = useHistory();
   const {id} = useParams();
-  const [activeSnapshotId, setActiveSnapshotId] = useState("")
-  const [iconFile, setIconFile] = useState(null)
-  const [iconURL, setIconURL] = useState(null)
-  const [styleName, setStyleName] = useState(null)
-  const [status, setStatus] = useState(true)
-  const [snapshots, setSnapshots] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [showcases, setShowcases] = useState([])
+  const [activeSnapshotId,
+    setActiveSnapshotId] = useState("")
+  const [iconFile,
+    setIconFile] = useState(null)
+  const [iconURL,
+    setIconURL] = useState(null)
+  const [styleName,
+    setStyleName] = useState(null)
+  const [status,
+    setStatus] = useState(true)
+  const [snapshots,
+    setSnapshots] = useState([])
+  const [loading,
+    setLoading] = useState(false)
+  const [showcases,
+    setShowcases] = useState([])
 
   const defaultOptions = {
     loop: true,
@@ -61,23 +69,22 @@ export const StyleDetailPage = () => {
     }
   }
 
-
-  const handleDeleteSnapshot = async ({snapshotId}) => {
+  const handleDeleteSnapshot = async({snapshotId}) => {
     setLoading(true)
     const response = await deleteSnapshot({snapshotId})
-    if(response.id !== undefined) {
-        const newSnapshots = snapshots.filter(snapshot => snapshot.id !== response.id) 
-        setSnapshots(newSnapshots)
+    if (response.id !== undefined) {
+      const newSnapshots = snapshots.filter(snapshot => snapshot.id !== response.id)
+      setSnapshots(newSnapshots)
     }
     setLoading(false)
   }
 
-  const handleDeleteShowcase = async ({showcaseId}) => {
+  const handleDeleteShowcase = async({showcaseId}) => {
     setLoading(true)
     const response = await deleteShowcase({showcaseId})
-    if(response.id !== undefined) {
-        const newShowCases = showcases.filter(showcase => showcase.id !== response.id) 
-        setShowcases(newShowCases)
+    if (response.id !== undefined) {
+      const newShowCases = showcases.filter(showcase => showcase.id !== response.id)
+      setShowcases(newShowCases)
     }
     setLoading(false)
   }
@@ -86,7 +93,7 @@ export const StyleDetailPage = () => {
     <div className="flex">
       <div
         className={loading
-        ? "w-full flex items-center h-full absolute bg-white"
+        ? "w-full z-50 flex items-center h-full absolute bg-white"
         : "w-full flex items-center h-full absolute bg-white hidden"}
         style={{
         backgroundColor: "rgba(0, 0, 0, 0.85)"
@@ -111,12 +118,21 @@ export const StyleDetailPage = () => {
         <div>
           <div className="flex">
             <div>
-              <img className="rounded-lg shadow-2xl h-44" src={iconURL}></img>
+              <img className="rounded-lg shadow-2xl h-44" src={iconFile ? URL.createObjectURL(iconFile) : iconURL}></img>
 
-              <div class="mt-3 space-y-2 w-full text-xs">
+              <div className="mt-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Style Icon:</label>
-                <button
-                  className="text-grey-lighter font-bold py-1 px-3 mt-4 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 ml-3">Browse</button>
+                <div
+                  className="relative text-grey-lighter w-20 cursor-pointer font-bold py-1 px-3 mt-4 text-white rounded text-sm bg-blue-500 hover:bg-blue-700">
+                  <input
+                    onChange={(event) => {
+                    setIconFile(event.target.files[0])
+                  }}
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    className="cursor-pointer opacity-0 w-full h-full absolute"/>
+                  Browse
+                </div>
               </div>
             </div>
             <div className="ml-5 w-1/3">
@@ -127,8 +143,7 @@ export const StyleDetailPage = () => {
                   placeholder="Enter Style's Name"
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 w-52 px-4"
                   required="required"
-                  type="text"
-                  />
+                  type="text"/>
                 <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>
               <div className="mb-3 space-y-2 w-full text-xs">
@@ -170,14 +185,19 @@ export const StyleDetailPage = () => {
             onClick={() => history.push(`/styles/${id}/upload-snapshot`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Snapshot</button>
         </div>
-        <SnapshotTable snapshots={snapshots} handleDeleteSnapshot = {handleDeleteSnapshot} activeSnapshotId = {activeSnapshotId}/>
+        <SnapshotTable
+          snapshots={snapshots}
+          handleDeleteSnapshot={handleDeleteSnapshot}
+          activeSnapshotId={activeSnapshotId}/>
         <div className="font-medium text-xl mb-3 mt-10">Style's Showcase List</div>
         <div className="my-4 flex">
           <button
             onClick={() => history.push(`/styles/${id}/upload-showcase`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Showcase Image</button>
         </div>
-        <ShowcaseTable showcases={showcases} handleDeleteShowcase = {handleDeleteShowcase}/>
+        <ShowcaseTable
+          showcases={showcases}
+          handleDeleteShowcase={handleDeleteShowcase}/>
         <div className="mb-20"></div>
       </div>
     </div>

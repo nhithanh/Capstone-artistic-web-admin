@@ -42,7 +42,7 @@ export const StyleListPage = () => {
 
   return (
     <div className="flex h-screen">
-      <div className={loading ? "w-full flex items-center h-full absolute bg-white" : "w-full flex items-center h-full absolute bg-white hidden"} 
+      <div className={loading ? "w-full flex items-center h-full absolute bg-white z-50" : "w-full flex items-center h-full absolute bg-white hidden"} 
       style={{backgroundColor: "rgba(0, 0, 0, 0.85)"}}>
         <Lottie options={defaultOptions}
           height={100}
