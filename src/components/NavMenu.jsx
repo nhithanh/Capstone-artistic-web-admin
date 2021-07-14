@@ -1,9 +1,7 @@
 import {useHistory} from "react-router-dom";
-
 export const NavMenu = (props) => {
 
   const {activePage} = props
-
   const renderItem = (title, handleClick) => {
     if (title === activePage) {
       return (
@@ -27,10 +25,15 @@ export const NavMenu = (props) => {
   return (
     <div className="flex w-full h-full max-w-xs p-4 bg-gray-800">
       <ul className="flex flex-col w-full">
-        {renderItem('Style List', () => history.push('/'))}
+        {renderItem('Style List', () => history.push('/styles'))}
         {renderItem('Create New Style', () => history.push('create-new-style'))}
         <li className="my-px">
-          <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">Log Out</span>
+          <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase cursor-pointer"
+          onClick={async () => {
+            await localStorage.removeItem("token")
+            history.push("/")
+          }}
+          >Log Out</span>
         </li>
       </ul>
     </div>

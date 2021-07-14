@@ -43,7 +43,6 @@ export const SnapshotTable = (props) => {
           <td className="text-center border-b border-grey-light">{description}</td>
           <td className="py-4 border-b border-grey-light">
             <div className="flex justify-center">
-              <button className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-blue-500 hover:bg-blue-700">View</button>
               {id === activeSnapshotId ? 
               (<button className="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-green-400 text-white hover:bg-green-600">
                 Active
