@@ -35,7 +35,7 @@ export const UploadNewSnapshotPage = () => {
 
   const handleUploadSnapshot = async() => {
     setLoading(true)
-    uploadSnapshot({snapshotName, snapshotFile: selectedFile, styleRoutingKey: style.routingKey, styleId: id}).then(() => {
+    uploadSnapshot({snapshotName, snapshotFile: selectedFile, styleRoutingKey: style.routingKey, styleId: id, description: snapshotDescription}).then(() => {
       setLoading(false)
       history.push(`/styles/${id}`)
     })

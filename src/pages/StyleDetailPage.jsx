@@ -10,6 +10,8 @@ import {deleteSnapshot} from '../apis/snapshots'
 import {ShowcaseTable} from '../components/ShowcasesTable'
 import {fetchAllShowcases} from '../apis/showcases';
 import {deleteShowcase} from '../apis/showcases'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const StyleDetailPage = () => {
   const history = useHistory();
@@ -62,18 +64,27 @@ export const StyleDetailPage = () => {
 
   const handleUpdateStyle = () => {
     let isValid = true
-    if(status) {
-      if(!activeSnapshotId) {
+    const activeSnapshotId_ = activeSnapshotId == "" ? null : activeSnapshotId
+    
+    if(status == true) {
+      if(activeSnapshotId_ == null) {
         isValid = false
-        console.log("Style without active snapshot can't be active")
+        toast.error('Cannot active style without active snapshot id!', {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          });
       }
     }
     if(isValid) {
       setLoading(true)
       if (iconFile) {
-        updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId}).then(() => setLoading(false))
+        updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId: activeSnapshotId_}).then(() => setLoading(false))
       } else {
-        updateStyle({id, styleName, isActive: status, activeSnapshotId}).then(() => setLoading(false))
+        updateStyle({id, styleName, isActive: status, activeSnapshotId: activeSnapshotId_}).then(() => setLoading(false))
       }
     }
   }
@@ -100,6 +111,7 @@ export const StyleDetailPage = () => {
 
   return (
     <div className="flex">
+      <ToastContainer/>
       <div
         className={loading
         ? "w-full z-50 flex items-center h-full absolute bg-white"
@@ -177,6 +189,7 @@ export const StyleDetailPage = () => {
                   setActiveSnapshotId(e.target.value)
                 }}
                   className="w-full border border-gray-300 rounded-lg text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                  <option value="">Select active snapshot</option>
                   {snapshots.map(snapshot => {
                     return <option value={snapshot.id}>{snapshot.name}</option>
                   })
