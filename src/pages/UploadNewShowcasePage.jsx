@@ -23,7 +23,7 @@ export const UploadNewShowCasePage = () => {
     setLoading(true)
     addShowcase({showcaseName, file: iconFile, styleId: id}).then(rs => {
       setLoading(false)
-      history.push(`/styles/{id}`)
+      history.push(`/styles/${id}`)
     })
   }
 
@@ -46,7 +46,7 @@ export const UploadNewShowCasePage = () => {
           <img
             alt="Go back icon"
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
-            onClick={() => history.push('/')}
+            onClick={() => history.push(`/styles/${id}`)}
             className="h-6 w-6 mr-5 cursor-pointer"/>
           <div className="text-2xl font-thin">Add New Showcase</div>
 

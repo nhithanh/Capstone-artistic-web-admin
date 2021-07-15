@@ -61,11 +61,20 @@ export const StyleDetailPage = () => {
   }, [])
 
   const handleUpdateStyle = () => {
-    setLoading(true)
-    if (iconFile) {
-      updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId}).then(() => setLoading(false))
-    } else {
-      updateStyle({id, styleName, isActive: status, activeSnapshotId}).then(() => setLoading(false))
+    let isValid = true
+    if(status) {
+      if(!activeSnapshotId) {
+        isValid = false
+        console.log("Style without active snapshot can't be active")
+      }
+    }
+    if(isValid) {
+      setLoading(true)
+      if (iconFile) {
+        updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId}).then(() => setLoading(false))
+      } else {
+        updateStyle({id, styleName, isActive: status, activeSnapshotId}).then(() => setLoading(false))
+      }
     }
   }
 
@@ -143,6 +152,9 @@ export const StyleDetailPage = () => {
                   placeholder="Enter Style's Name"
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 w-52 px-4"
                   required="required"
+                  onChange = {event => {
+                    setStyleName(event.target.value)
+                  }}
                   type="text"/>
                 <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>

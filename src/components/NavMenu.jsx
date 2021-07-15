@@ -26,7 +26,7 @@ export const NavMenu = (props) => {
     <div className="flex w-full h-full max-w-xs p-4 bg-gray-800">
       <ul className="flex flex-col w-full">
         {renderItem('Style List', () => history.push('/styles'))}
-        {renderItem('Create New Style', () => history.push('create-new-style'))}
+        {renderItem('Create New Style', () => history.push('/create-new-style'))}
         <li className="my-px">
           <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase cursor-pointer"
           onClick={async () => {
