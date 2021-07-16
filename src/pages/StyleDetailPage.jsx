@@ -64,9 +64,9 @@ export const StyleDetailPage = () => {
 
   const handleUpdateStyle = () => {
     let isValid = true
-    const activeSnapshotId_ = activeSnapshotId == "" ? null : activeSnapshotId
+    const activeSnapshotId_ = activeSnapshotId === "" ? null : activeSnapshotId
     
-    if(status == true) {
+    if(status === true) {
       if(activeSnapshotId_ == null) {
         isValid = false
         toast.error('Cannot active style without active snapshot id!', {
@@ -139,7 +139,7 @@ export const StyleDetailPage = () => {
         <div>
           <div className="flex">
             <div>
-              <img className="rounded-lg shadow-2xl h-44" src={iconFile ? URL.createObjectURL(iconFile) : iconURL}></img>
+              <img className="rounded-lg shadow-2xl h-44" src={iconFile ? URL.createObjectURL(iconFile) : iconURL} alt=""></img>
 
               <div className="mt-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Style Icon:</label>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { login } from '../apis/auth'
+import { login, getUserProfile } from '../apis/auth'
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import {useHistory} from 'react-router-dom'
-
-export const LoginPage = () => {
+import { toast, ToastContainer } from 'react-toastify'
+export const LoginPage = ({setIsLoggedIn}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -38,16 +38,43 @@ export const LoginPage = () => {
       const response = await login({ username: email, password })
       if (response.token) {
         await localStorage.setItem('token', response.token)
-        setIsLoading(false)
+        const {data, statusCode, message} = await getUserProfile()
+        if(statusCode && message) {
+          toast.error(message, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+            });
+        }
+        if(data) {
+          const {role} = data
+          if(role === "admin") {
+            setIsLoggedIn(true)
+            setIsLoading(false)
+            history.push("/styles")
+          }
+        }
       } else {
-        setResponseError("email or password is not correct!")
+        toast.error("Email or password is not correct!", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          });
+        setIsLoggedIn(false)
         setIsLoading(false)
-        history.push("/styles")
+
       }
     }
   }
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12" style={{backgroundImage: `url("https://wallpapercave.com/wp/wp3869308.jpg")` }}>
+      <ToastContainer/>
       <div
         className={isLoading
           ? "w-full z-50 flex items-center h-full absolute bg-white"

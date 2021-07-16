@@ -3,36 +3,45 @@ import { CreateNewStylePage } from "../pages/CreateNewStylePage";
 import { StyleDetailPage } from "../pages/StyleDetailPage";
 import { StyleListPage } from "../pages/StyleListPage";
 import { UploadNewSnapshotPage } from "../pages/UploadNewSnapshot";
-import {UploadNewShowCasePage} from '../pages/UploadNewShowcasePage'
+import { UploadNewShowCasePage } from '../pages/UploadNewShowcasePage'
 import { LoginPage } from '../pages/LoginPage'
+import { PrivateRoute } from '../components/PrivateComponent'
+import { useEffect, useState } from 'react'
+import { getUserProfile } from '../apis/auth'
+
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const checkLogin = async () => {
+    const {data, statusCode, message} = await getUserProfile()
+    if(statusCode && message) {
+      setIsLoggedIn(false)
+    } else {
+      const {role} = data
+      if(role === "admin") {
+        setIsLoggedIn(true)
+      }
+    }
+  }
+  useEffect(() => {
+    checkLogin()
+    return () => { }
+  }, [])
   return (
     <Router>
       <Switch>
-        <Route path="/styles/:id/upload-snapshot">
-          <UploadNewSnapshotPage />
-        </Route>
+      <Route exact path="/">
+          <LoginPage setIsLoggedIn={setIsLoggedIn}/>
+      </Route>
 
-        <Route path="/styles/:id/upload-showcase">
-          <UploadNewShowCasePage />
-        </Route>
+      <PrivateRoute isLoggedIn={isLoggedIn} path="/styles/:id/upload-snapshot" component={UploadNewSnapshotPage} />
 
-        <Route path="/styles/:id">
-          <StyleDetailPage />
-        </Route>
+      <PrivateRoute isLoggedIn={isLoggedIn} path="/styles/:id/upload-showcase" component={UploadNewShowCasePage} />
 
-        <Route path="/create-new-style">
-          <CreateNewStylePage />
-        </Route>
+      <PrivateRoute isLoggedIn={isLoggedIn} path="/styles/:id" component={StyleDetailPage} />
 
-        <Route path="/styles">
-          <StyleListPage />
-        </Route>
+      <PrivateRoute isLoggedIn={isLoggedIn} path="/create-new-style" component={CreateNewStylePage} />
 
-        <Route exact path="/">
-          <LoginPage/>
-        </Route>
-
+      <PrivateRoute isLoggedIn={isLoggedIn} path="/styles" component={StyleListPage}/>
       </Switch>
     </Router>
   );
