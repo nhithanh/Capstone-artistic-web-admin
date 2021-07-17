@@ -4,7 +4,7 @@ import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import {useHistory} from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
-export const LoginPage = ({setIsLoggedIn}) => {
+export const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -50,9 +50,8 @@ export const LoginPage = ({setIsLoggedIn}) => {
             });
         }
         if(data) {
-          const {role} = data
-          if(role === "admin") {
-            setIsLoggedIn(true)
+          if(data.role === "admin") {
+            localStorage.setItem("isLoggedIn", true)
             setIsLoading(false)
             history.push("/styles")
           }
@@ -66,8 +65,8 @@ export const LoginPage = ({setIsLoggedIn}) => {
           draggable: true,
           progress: undefined,
           });
-        setIsLoggedIn(false)
-        setIsLoading(false)
+          localStorage.setItem("isLoggedIn", false)
+          setIsLoading(false)
 
       }
     }

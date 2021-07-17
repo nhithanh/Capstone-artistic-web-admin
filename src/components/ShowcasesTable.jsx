@@ -5,13 +5,14 @@ export const ShowcaseTable = (props) => {
 
   const { showcases, handleDeleteShowcase } = props
   const showDeleteAlert = (showcase) => {
+    console.log(showcase)
     confirmAlert({
       overlayClassName: "darken",
       customUI: ({ onClose }) => {
         return (
           <div className="py-6 px-12 rounded-lg shadow-xl bg-white">
             <p className="font-bold text-xl text-center">Confirm Delete</p>
-            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure <br /> to delete snapshot <span className="text-base font-medium">{showcase.id}</span> </p>
+            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure <br /> to delete showcase <span className="text-base font-medium">{showcase.photoName}</span> </p>
             <div className="flex items-center justify-center mt-4">
               <button onClick={async () => {
                 onClose()
@@ -33,6 +34,8 @@ export const ShowcaseTable = (props) => {
       return (
         <tr className="hover:bg-gray-50" key={id}>
           <td className="text-center border-b border-grey-light">{index + 1}</td>
+          <td className="text-center border-b border-grey-light">{showcase.photoName}</td>
+
           <td className="text-center border-b border-grey-light"><a className="text-blue-500 underline" target="_blank" rel="noopener noreferrer" href={accessURL}>{accessURL}</a></td>
           <td className="text-center border-b border-grey-light">{moment(createdAt).format('DD/MM/YYYY [at] h:mm:ss A')}</td>
           <td className="py-4 border-b border-grey-light">
@@ -58,6 +61,7 @@ export const ShowcaseTable = (props) => {
           <thead>
             <tr>
             <th className="py-4 text-center bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">No</th>
+            <th className="py-4 text-center bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Name</th>
               <th className="py-4 text-center bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Image</th>
               <th className="py-4 text-center bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Uploaded At</th>
               <th className="py-4 text-center bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Actions</th>
