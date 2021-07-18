@@ -4,21 +4,32 @@ import {useHistory} from "react-router-dom";
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import {TrainingResultTalbe} from '../components/TrainingResultTable';
+import {createNewTrainingRequest} from '../apis/training-request';
 
 export const CreateTrainingRequestPage = () => {
   const history = useHistory();
-  const [iconFile,
-    setIconFile] = useState(null)
+  const [styleFile,
+    setStyleFile] = useState(null)
+
+  const [name,
+    setName] = useState('')
+
+  const [description,
+    setDescription] = useState('')
+
+  const [epochs,
+    setEpochs] = useState(10)
+
   const [lr,
     setLr] = useState(0.001)
   const [saveStep,
     setSaveStep] = useState(1000)
 
   const [contentWeight,
-    setContentWeight] = useState("1e5")
+    setContentWeight] = useState(1000)
 
   const [styleWeight,
-    setSStyleWeight] = useState("1e10")
+    setSStyleWeight] = useState(100000)
 
   const [relu12,
     setRelu12] = useState(0.8)
@@ -41,6 +52,30 @@ export const CreateTrainingRequestPage = () => {
     animationData: animationData,
     isStopped: !loading
   };
+
+  const handleCreateNewTrainingRequest = () => {
+    setLoading(true)
+    createNewTrainingRequest({
+      name,
+      contentWeight,
+      epochs,
+      description,
+      lr,
+      referenceStyleFile: styleFile,
+      relu12Weight: relu12,
+      relu22Weight: relu22,
+      relu33Weight: relu33,
+      relu43Weight: relu43,
+      saveStep,
+      styleWeight
+    }).then(rs => {
+      setLoading(false)
+      history.push('/training-requests')
+    }).catch(err => {
+      console.log(err)
+      setLoading(false)
+    })
+  }
 
   return (
     <div className="flex h-screen">
@@ -66,6 +101,32 @@ export const CreateTrainingRequestPage = () => {
           <div className="text-2xl font-thin">Create Training Request</div>
 
         </div>
+        <div className="font-medium text-xl mb-3">Basic Information:</div>
+        <div class="mb-3 space-y-2 w-full text-xs">
+          <label className="font-semibold text-gray-600 py-2">Name</label>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter Snapshot's Name"
+            className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 w-52 px-4"
+            required="required"
+            type="text"
+            name="integration[shop_name]"
+            id="integration_shop_name"/>
+        </div>
+        <div class="mb-3 space-y-2 w-full text-xs">
+          <label className="font-semibold text-gray-600 py-2">Brief description</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter Snapshot's brief information"
+            className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg pt-2 h-32 w-52 px-4"
+            required="required"
+            type="text"
+            name="integration[shop_name]"
+            id="integration_shop_name"/>
+          <p className="text-red text-xs hidden">Please fill out this field.</p>
+        </div>
         <div className="font-medium text-xl mb-3">Training Hyperparameters:</div>
         <div>
           <div className="flex">
@@ -73,8 +134,8 @@ export const CreateTrainingRequestPage = () => {
               <img
                 alt="Style Icon"
                 className="rounded-lg shadow h-44"
-                src={iconFile
-                ? URL.createObjectURL(iconFile)
+                src={styleFile
+                ? URL.createObjectURL(styleFile)
                 : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600." +
                   "jpg"}/>
 
@@ -84,7 +145,7 @@ export const CreateTrainingRequestPage = () => {
                   className="relative text-grey-lighter font-bold py-1 px-3 mt-4 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 ml-3">
                   <input
                     onChange={(event) => {
-                    setIconFile(event.target.files[0])
+                    setStyleFile(event.target.files[0])
                   }}
                     type="file"
                     accept="image/png, image/jpeg"
@@ -95,6 +156,8 @@ export const CreateTrainingRequestPage = () => {
             </div>
             <div className="ml-5 w-2/3">
               <div>
+                <p className="font-medium text-purple-600 text-sm mb-4">Training Parameters:</p>
+
                 <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide">lr:</span>
                 <input
                   value={lr}
@@ -109,6 +172,17 @@ export const CreateTrainingRequestPage = () => {
                 <input
                   value={saveStep}
                   onChange={(e) => setSaveStep(e.target.value)}
+                  placeholder="Save Step"
+                  className="appearance-none bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 w-32 px-4"
+                  required="required"
+                  type="text"
+                  name="integration[shop_name]"
+                  id="integration_shop_name"/>
+
+                <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide ml-8">Num of epochs:</span>
+                <input
+                  value={epochs}
+                  onChange={(e) => setEpochs(e.target.value)}
                   placeholder="Save Step"
                   className="appearance-none bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 w-32 px-4"
                   required="required"
@@ -140,6 +214,7 @@ export const CreateTrainingRequestPage = () => {
               </div>
               <div className="my-3 border"></div>
               <div>
+                <p className="font-medium text-purple-600 text-sm mb-4">Style Layer Weight Parameters:</p>
                 <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide">Relu1_2:</span>
                 <input
                   value={relu12}
@@ -187,6 +262,7 @@ export const CreateTrainingRequestPage = () => {
           </div>
         </div>
         <button
+          onClick={() => handleCreateNewTrainingRequest()}
           className="text-base font-medium px-7 py-1 bg-green-500 text-white rounded shadow mt-6">Create Training Request</button>
       </div>
     </div>

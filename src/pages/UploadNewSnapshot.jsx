@@ -80,7 +80,6 @@ export const UploadNewSnapshotPage = () => {
                   type="text"
                   name="integration[shop_name]"
                   id="integration_shop_name"/>
-                <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>
               <div class="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Brief information</label>

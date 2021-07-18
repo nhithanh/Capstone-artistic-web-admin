@@ -41,7 +41,7 @@ export default function App() {
 
       <PrivateRoute path="/create-training-request" component={CreateTrainingRequestPage} exact={true}/>
 
-      <PrivateRoute path="/training-history" component={TrainingHistoryPage} exact={true}/>
+      <PrivateRoute path="/training-requests" component={TrainingHistoryPage} exact={true}/>
 
       <PrivateRoute path="/training-history/:id" component={TrainingDetailPage} />
 

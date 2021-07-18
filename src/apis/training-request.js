@@ -19,11 +19,14 @@ export const fetchTrainingResult = async(id) => {
     return response.data
 }
 
-export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep, contentWeight, styleWeight, relu12Weight, relu22Weight, relu33Weight, relu43Weight}) => {
-    const ENDPOINT_URL = `${MAIN_SERVER}/styles`
+export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep, contentWeight, styleWeight, relu12Weight, relu22Weight, relu33Weight, relu43Weight, name, description, epochs}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/training-requests`
     let formData = new FormData();
+    formData.append("name", name)
+    formData.append("description", description)
+    formData.append("epochs", epochs)
     formData.append("lr", lr)
-    formData.append("referenceStyleFile", referenceStyleFile)
+    formData.append("photo", referenceStyleFile)
     formData.append("saveStep", saveStep)
     formData.append("contentWeight", contentWeight)
     formData.append("styleWeight", styleWeight)
