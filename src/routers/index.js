@@ -8,6 +8,8 @@ import { LoginPage } from '../pages/LoginPage'
 import { PrivateRoute } from '../components/PrivateComponent'
 import { useEffect } from 'react'
 import { getUserProfile } from '../apis/auth'
+import { TrainingHistoryPage } from "../pages/TrainingHistoryPage";
+import { TrainingDetailPage } from "../pages/TrainingDetailPage";
 
 export default function App() {
   const checkLogin = async () => {
@@ -35,6 +37,10 @@ export default function App() {
       <PrivateRoute path="/styles/:id/upload-snapshot" component={UploadNewSnapshotPage} />
 
       <PrivateRoute path="/styles/:id/upload-showcase" component={UploadNewShowCasePage} />
+
+      <PrivateRoute path="/training-history" component={TrainingHistoryPage} exact={true}/>
+
+      <PrivateRoute path="/training-history/:id" component={TrainingDetailPage} />
 
       <PrivateRoute path="/styles/:id" component={StyleDetailPage} />
 
