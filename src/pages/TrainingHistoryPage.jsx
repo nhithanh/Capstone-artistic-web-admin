@@ -44,7 +44,7 @@ export const TrainingHistoryPage = () => {
         <div className="my-4 flex justify-start">
             <button
               onClick={() => {
-              history.push('/create-new-style')
+              history.push('/create-training-request')
             }}
               className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-400 hover:bg-blue-600 shadow">Create Training Request</button>
           </div>

@@ -35,7 +35,7 @@ export const TrainingDetailPage = () => {
           <img
             alt="Go back icon"
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
-            onClick={() => history.push('/styles')}
+            onClick={() => history.push('/training-history')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
           <div className="text-2xl font-thin">Training Detail Page</div>
 
