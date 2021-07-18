@@ -88,7 +88,7 @@ export const CreateTrainingRequestPage = () => {
         <Lottie options={defaultOptions} height={100} width={100}/>
       </div>
       <div className="w-1/5">
-        <NavMenu activePage="Training History"/>
+        <NavMenu activePage="Training Requests"/>
       </div>
       <div className="w-3/5 pt-5">
         <div className="flex items-center mb-6">

@@ -42,7 +42,7 @@ export const TrainingHistoryPage = () => {
         <NavMenu activePage="Training Requests"/>
       </div>
       <div className="w-1/5"></div>
-      <div className="w-4/5 pt-5 mx-10">
+      <div className="w-4/5 pt-5 mx-10 pb-10">
         <div className="flex items-center mb-6">
           <img
             alt="Go back icon"
