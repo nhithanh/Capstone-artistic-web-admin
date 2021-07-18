@@ -60,7 +60,7 @@ export const StyleDetailPage = () => {
     }).catch(err => {
       setLoading(false)
     })
-  }, [])
+  }, [id])
 
   const handleUpdateStyle = () => {
     let isValid = true
@@ -215,7 +215,7 @@ export const StyleDetailPage = () => {
           handleDeleteSnapshot={handleDeleteSnapshot}
           activeSnapshotId={activeSnapshotId}/>
         <div className="font-medium text-xl mb-3 mt-10">Style's Showcase List</div>
-        <div className="my-4 flex">
+        <div className="my-4 flex justify-end">
           <button
             onClick={() => history.push(`/styles/${id}/upload-showcase`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Showcase Image</button>

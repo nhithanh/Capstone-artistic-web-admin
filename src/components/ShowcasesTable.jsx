@@ -28,6 +28,7 @@ export const ShowcaseTable = (props) => {
       }
     })
   }
+  
   const renderTableItem = () => {
     return showcases.map((showcase, index) => {
       const { accessURL, id, createdAt } = showcase
@@ -52,6 +53,18 @@ export const ShowcaseTable = (props) => {
         </tr>
       )
     })
+  }
+
+  if(showcases.length === 0) {
+    return (
+      <>
+        <div className="flex justify-center mt-5">
+          <img className="w-72" src="https://ouch-cdn2.icons8.com/eOA0XcgiFoMRCQyi2pwBBBJnZ4A9MnRQ1sYhmZxYtk8/rs:fit:932:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvODk2/LzBkMjlmYjI5LTIz/YTMtNGM0MS1hMWMw/LTliN2JmMzRiNDY4/Ny5zdmc.png"></img>
+        </div>
+        <p className="text-base font-medium tracking-wide text-center mt-5">Show case list is empty</p>
+      </>
+      
+    )
   }
 
   return (

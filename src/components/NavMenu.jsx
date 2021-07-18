@@ -7,6 +7,7 @@ export const NavMenu = (props) => {
       return (
         <li className="my-px bg-gray-50 rounded">
           <span
+            onClick={() => handleClick()}
             className="flex font-medium text-sm text-gray-500 px-4 my-4 uppercase cursor-pointer">{title}</span>
         </li>
       )
@@ -27,7 +28,7 @@ export const NavMenu = (props) => {
       <ul className="flex flex-col w-full">
         {renderItem('Style List', () => history.push('/styles'))}
         {renderItem('Create New Style', () => history.push('/create-new-style'))}
-        {renderItem('Training History', () => history.push('/training-requests'))}
+        {renderItem('Training Requests', () => history.push('/training-requests'))}
         <li className="my-px">
           <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase cursor-pointer"
           onClick={async () => {

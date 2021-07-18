@@ -1,10 +1,18 @@
 import {useHistory} from "react-router-dom";
 import moment from 'moment'
+import { confirmAlert } from 'react-confirm-alert';
+
 
 const renderStatus = (status) => {
-  if (status === "WAITING") {
-    return <button
-    className="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue-400 text-white shadow">Waiting</button>
+  switch(status) {
+    case "WAITING":
+      return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue-400 text-white shadow">Waiting</button>
+    case "STOPPED":
+      return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-red-400 text-white shadow">Stopped</button>
+    case "ON PROGRESS":
+      return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-yellow-500 text-white shadow">On progress</button>
+    default:
+      return null
   }
 }
 
@@ -13,7 +21,7 @@ export const TrainingHistoryTable = (props) => {
   const {trainingRequests} = props
   const renderTableItem = () => {
     return trainingRequests.map(trainingRequest => {
-      const {id, name, createdAt, lr, accessURL, status, checkpoint} = trainingRequest
+      const {id, name, createdAt, accessURL, status, checkpoint} = trainingRequest
       return (
         <tr className="hover:bg-gray-50" key={id}>
           <td className="text-center border-b border-grey-light">{name}</td>
@@ -34,9 +42,45 @@ export const TrainingHistoryTable = (props) => {
             <button
               onClick={() => history.push(`/training-requests/${id}`)}
               className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-blue-500 hover:bg-blue-700">View</button>
+            {
+              status === 'ON PROGRESS' ? <button
+                onClick={() => history.push(`/training-requests/${id}`)}
+              className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">Stop</button> : 
+              (
+                <button
+                  onClick={() => showAlert(status, name, () => console.log("Click"))}
+                  className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">
+                  Delete
+                </button>
+              )
+            }
           </td>
         </tr>
       )
+    })
+  }
+
+  const showAlert = (status, name, handleOk) => {
+    const title = status === "ON PROGRESS" ? "Stop" : "Delete"
+    confirmAlert({
+      overlayClassName: "darken",
+      customUI: ({ onClose }) => {
+        return (
+          <div className="py-6 px-12 rounded-lg shadow-xl bg-white">
+            <p className="font-bold text-xl text-center">Confirm {title} Training Request</p>
+            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure to {title.toLowerCase()} {name}</p>
+            <div className="flex items-center justify-center mt-4">
+              <button onClick={async () => {
+                onClose()
+                
+              }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
+                {title}
+              </button>
+              <button onClick={() => onClose()} className="bg-gray-800 px-4 py-2 rounded-lg shadow-lg text-white text-base mx-2 font-medium">Cancel</button>
+            </div>
+          </div>
+        )
+      }
     })
   }
 

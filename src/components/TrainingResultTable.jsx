@@ -14,12 +14,24 @@ export const TrainingResultTalbe = (props) => {
             </div>
           </td>
           <td className="text-center border-b border-grey-light flex justify-center py-2">
-            <a href={photoAccessURL}><img className="h-20 bg-red-100 rounded" src={photoAccessURL}></img></a>
+            <a href={photoAccessURL}><img alt="training result" className="h-20 bg-red-100 rounded" src={photoAccessURL}></img></a>
           </td>
           <td className="text-center border-b border-grey-light">{moment(new Date()).format('DD/MM/YYYY')}</td>
         </tr>
       )
     })
+  }
+
+  if(results.length == 0) {
+    return (
+      <>
+        <div className="flex justify-center mt-5">
+          <img className="w-72" src="https://ouch-cdn2.icons8.com/HfyHdgt1q5Fx1iA_z9w50f3PkS_x6rN_ttCjhrS-tXM/rs:fit:912:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNTY4/L2E3YTJlNWRkLTA3/MmUtNGEyMS1hN2M4/LTRlZmJlNGY2ZDMz/ZS5zdmc.png"></img>
+        </div>
+        <p className="text-base font-medium tracking-wide text-center mt-5">Training result is empty</p>
+      </>
+      
+    )
   }
 
   return (

@@ -3,7 +3,6 @@ import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
-import {TrainingResultTalbe} from '../components/TrainingResultTable';
 import {createNewTrainingRequest} from '../apis/training-request';
 
 export const CreateTrainingRequestPage = () => {

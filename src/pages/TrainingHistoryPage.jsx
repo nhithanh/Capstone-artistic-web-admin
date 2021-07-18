@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {createNewStyle} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
 import Lottie from 'react-lottie';
@@ -39,9 +38,10 @@ export const TrainingHistoryPage = () => {
       }}>
         <Lottie options={defaultOptions} height={100} width={100}/>
       </div>
-      <div className="w-1/5">
-        <NavMenu activePage="Training History"/>
+      <div className="w-1/5 fixed h-screen">
+        <NavMenu activePage="Training Requests"/>
       </div>
+      <div className="w-1/5"></div>
       <div className="w-4/5 pt-5 mx-10">
         <div className="flex items-center mb-6">
           <img
@@ -49,7 +49,7 @@ export const TrainingHistoryPage = () => {
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
             onClick={() => history.push('/styles')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
-          <div className="text-2xl font-thin">Training History</div>
+          <div className="text-2xl font-thin">Training Requests</div>
           
         </div>
         <div className="my-4 flex justify-start">

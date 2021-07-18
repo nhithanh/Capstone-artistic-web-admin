@@ -7,6 +7,13 @@ export const fetchAllTrainingRequest = async () => {
     return response.data
 }
 
+
+export const stopTraining = async (id) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/training-requests/${id}/stop`
+    const response = await axios.get(ENDPOINT_URL)
+    return response.data
+}
+
 export const fetchTrainingRequestDetail = async (id) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/training-requests/${id}`
     const response = await axios.get(ENDPOINT_URL)

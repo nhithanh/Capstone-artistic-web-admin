@@ -34,22 +34,22 @@ export const TrainingDetailPage = () => {
       })       
       setLoading(false)
     })
-  }, [])
+  }, [id])
 
-  const showStopAlert = () => {
+  const showStopAlert = (title) => {
     confirmAlert({
       overlayClassName: "darken",
       customUI: ({ onClose }) => {
         return (
           <div className="py-6 px-12 rounded-lg shadow-xl bg-white">
-            <p className="font-bold text-xl text-center">Confirm Stop Training</p>
-            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure to stop training</p>
+            <p className="font-bold text-xl text-center">Confirm {title} Training</p>
+            <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure to {title.toLowerCase()} training</p>
             <div className="flex items-center justify-center mt-4">
               <button onClick={async () => {
                 onClose()
                 
               }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
-                Stop
+                {title}
               </button>
               <button onClick={() => onClose()} className="bg-gray-800 px-4 py-2 rounded-lg shadow-lg text-white text-base mx-2 font-medium">Cancel</button>
             </div>
@@ -57,6 +57,42 @@ export const TrainingDetailPage = () => {
         )
       }
     })
+  }
+
+  const renderStatus = (status) => {
+    switch(status) {
+      case "WAITING":
+        return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-blue-400">Wating</button>
+      case "STOPPED":
+        return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-red-500">Stopped</button>
+      case "ON PROGRESS":
+        return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-yellow-500">On Progress</button>
+      case "COMPLETED":
+        return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-green-500">Completed</button>
+      default:
+        return null;
+    }
+  }
+
+  const renderDeleteButton = (status) => {
+    switch (status) {
+      case "WAITING": 
+        return (
+        <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" 
+          onClick={() => showStopAlert("Delete")}>
+          Delete training
+        </button>
+        )
+      case "ON PROGRESS":
+        return (
+          <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" 
+          onClick={() => showStopAlert("Stop")}>
+          Stop training
+        </button>
+        )
+      default: 
+          return null;
+    }
   }
 
   if(trainingRequestDetail !== null) {
@@ -99,7 +135,7 @@ export const TrainingDetailPage = () => {
             <img
               alt="Go back icon"
               src="https://image.flaticon.com/icons/png/512/545/545680.png"
-              onClick={() => history.push('/training-history')}
+              onClick={() => history.push('/training-requests')}
               className="h-6 w-6 mr-5 cursor-pointer"/>
             <div className="text-2xl font-thin">Training Detail Page</div>
           </div>
@@ -107,7 +143,7 @@ export const TrainingDetailPage = () => {
           <div className="text-sm mb-3">
             {description}
           </div>
-          <div className="font-medium text-xl mb-3">Status: <button className="ml-1 text-sm bg-yellow-500 rounded-full px-3 text-white py-1">In progress</button></div>
+          <div className="font-medium text-xl mb-3">Status: {renderStatus(status)}</div>
           <div className="font-medium text-xl mb-3">Training Hyperparameters:</div>
           <div>
             <div className="flex">
@@ -143,9 +179,11 @@ export const TrainingDetailPage = () => {
           </div>
           <div className="mt-7">
             <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide">Checkpoint:</span><button className="text-sm bg-green-500 rounded-full w-12 text-white py-0.5">{checkpoint}</button>
-            <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" onClick={() => showStopAlert()}>Stop training</button>
+            {
+              renderDeleteButton(status)
+            }
           </div>
-          <div className="font-medium text-xl mt-5 flex items-center">Training Results: <img className="ml-2 cursor-pointer w-5" src="https://image.flaticon.com/icons/png/512/545/545661.png"/></div>
+          <div className="font-medium text-xl mt-5 flex items-center">Training Results: <img className="ml-2 cursor-pointer w-5" src="https://image.flaticon.com/icons/png/512/545/545661.png" alt="Reload Icon"/></div>
           <TrainingResultTalbe results={trainingResults}/>
         </div>
       </div>
