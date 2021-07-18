@@ -43,7 +43,7 @@ export default function App() {
 
       <PrivateRoute path="/training-requests" component={TrainingHistoryPage} exact={true}/>
 
-      <PrivateRoute path="/training-history/:id" component={TrainingDetailPage} />
+      <PrivateRoute path="/training-requests/:id" component={TrainingDetailPage} />
 
       <PrivateRoute path="/styles/:id" component={StyleDetailPage} />
 

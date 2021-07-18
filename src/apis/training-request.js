@@ -1,8 +1,8 @@
 import axios from "axios"
 import {MAIN_SERVER} from "./config"
 
-export const fetchAllTraining = async () => {
-    const ENDPOINT_URL = `${MAIN_SERVER}/training`
+export const fetchAllTrainingRequest = async () => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/training-requests`
     const response = await axios.get(ENDPOINT_URL)
     return response.data
 }
@@ -19,12 +19,12 @@ export const fetchTrainingResult = async(id) => {
     return response.data
 }
 
-export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep, contentWeight, styleWeight, relu12Weight, relu22Weight, relu33Weight, relu43Weight, name, description, epochs}) => {
+export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep, contentWeight, styleWeight, relu12Weight, relu22Weight, relu33Weight, relu43Weight, name, description, numOfIterations}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/training-requests`
     let formData = new FormData();
     formData.append("name", name)
     formData.append("description", description)
-    formData.append("epochs", epochs)
+    formData.append("numOfIterations", numOfIterations)
     formData.append("lr", lr)
     formData.append("photo", referenceStyleFile)
     formData.append("saveStep", saveStep)

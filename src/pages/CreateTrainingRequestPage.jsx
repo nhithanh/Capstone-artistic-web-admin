@@ -17,8 +17,8 @@ export const CreateTrainingRequestPage = () => {
   const [description,
     setDescription] = useState('')
 
-  const [epochs,
-    setEpochs] = useState(10)
+  const [numOfIterations,
+    setNumOfIterations] = useState(10)
 
   const [lr,
     setLr] = useState(0.001)
@@ -58,7 +58,7 @@ export const CreateTrainingRequestPage = () => {
     createNewTrainingRequest({
       name,
       contentWeight,
-      epochs,
+      numOfIterations,
       description,
       lr,
       referenceStyleFile: styleFile,
@@ -179,10 +179,10 @@ export const CreateTrainingRequestPage = () => {
                   name="integration[shop_name]"
                   id="integration_shop_name"/>
 
-                <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide ml-8">Num of epochs:</span>
+                <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide ml-8">Num of iterations:</span>
                 <input
-                  value={epochs}
-                  onChange={(e) => setEpochs(e.target.value)}
+                  value={numOfIterations}
+                  onChange={(e) => setNumOfIterations(e.target.value)}
                   placeholder="Save Step"
                   className="appearance-none bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 w-32 px-4"
                   required="required"

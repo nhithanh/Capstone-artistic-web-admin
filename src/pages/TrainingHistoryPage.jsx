@@ -1,12 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {createNewStyle} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import {TrainingHistoryTable} from '../components/TrainingHistoryTable';
+import {fetchAllTrainingRequest} from '../apis/training-request'
 
 export const TrainingHistoryPage = () => {
+  const [trainingRequests, setTrainingRequests] = useState([])
+
+
   const history = useHistory();
   const [loading,
     setLoading] = useState(false)
@@ -16,6 +20,13 @@ export const TrainingHistoryPage = () => {
     animationData: animationData,
     isStopped: !loading
   };
+
+  useEffect(() => {
+    fetchAllTrainingRequest().then(rs=> {
+      console.log("rs:", rs)
+      setTrainingRequests(rs)
+    })
+  }, [])
 
   return (
     <div className="flex h-screen">
@@ -48,7 +59,7 @@ export const TrainingHistoryPage = () => {
             }}
               className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-400 hover:bg-blue-600 shadow">Create Training Request</button>
           </div>
-          <TrainingHistoryTable trainingHistories={[{}]}/>
+          <TrainingHistoryTable trainingRequests={trainingRequests}/>
       </div>
     </div>
   );
