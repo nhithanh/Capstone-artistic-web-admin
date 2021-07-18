@@ -1,23 +1,20 @@
-import {useHistory} from "react-router-dom";
 import moment from 'moment'
-import logo from './rs_1.jpg'
 
 export const TrainingResultTalbe = (props) => {
-  const history = useHistory();
   const {results} = props
   const renderTableItem = () => {
     return results.map(trainingHistory => {
-      const {id} = results
+      const {id, photoAccessURL, snapshotAccessURL, step} = trainingHistory
       return (
         <tr className="hover:bg-gray-50" key={id}>
-          <td className="text-center border-b border-grey-light"><span className="font-medium">2000</span></td>
+          <td className="text-center border-b border-grey-light"><span className="font-medium">{step}</span></td>
           <td className="py-4 border-b border-grey-light">
             <div className="flex justify-center">
-                <a href="#" className="italic underline text-blue-500">http://snapshot-file.com</a>
+                <a href={snapshotAccessURL} className="italic underline text-blue-500">Download Snapshot</a>
             </div>
           </td>
           <td className="text-center border-b border-grey-light flex justify-center py-2">
-            <img className="h-20 rounded" src={logo}></img>
+            <a href={photoAccessURL}><img className="h-20 bg-red-100 rounded" src={photoAccessURL}></img></a>
           </td>
           <td className="text-center border-b border-grey-light">{moment(new Date()).format('DD/MM/YYYY')}</td>
         </tr>
@@ -26,7 +23,7 @@ export const TrainingResultTalbe = (props) => {
   }
 
   return (
-    <div className="bg-white shadow-md rounded my-6">
+    <div className="bg-white shadow-md rounded my-6 w-4/5">
       <table className="text-left w-full border-collapse">
         <thead>
           <tr>
