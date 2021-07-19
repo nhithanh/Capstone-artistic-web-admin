@@ -33,7 +33,7 @@ export const CreateTrainingRequestPage = () => {
   const [contentWeight, setContentWeight] = useState(500000)
   const [contentWeightError, setContentWeightError] = useState('')
 
-  const [styleWeight,setSStyleWeight] = useState(10000000000)
+  const [styleWeight,setStyleWeight] = useState(10000000000)
   const [styleWeightError, setStyleWeightError] = useState('')
 
   const [relu12, setRelu12] = useState(0.7)
@@ -57,6 +57,18 @@ export const CreateTrainingRequestPage = () => {
     animationData: animationData,
     isStopped: !loading
   };
+
+  const setDefaultHyperParameter = () => {
+    setRelu12(0.7)
+    setRelu22(0.6)
+    setRelu33(0.4)
+    setRelu43(0.2)
+    setStyleWeight(10000000000)
+    setContentWeight(500000)
+    setSaveStep(1000)
+    setLr(0.001)
+    setNumOfIterations(20000)
+  }
 
   useEffect(() => {
     document.title = "Create Training Request"
@@ -224,7 +236,12 @@ export const CreateTrainingRequestPage = () => {
             name="integration[shop_name]"
             id="integration_shop_name"/>
         </div>
-        <div className="font-medium text-xl mb-3">Training Hyperparameters:</div>
+        <div className="font-medium text-xl mb-5 flex items-center">
+          Training Hyperparameters:
+          <button className="px-2 py-1 rounded shadow text-xs bg-blue-500 text-white ml-3 cursor-pointer hover:bg-blue-700"
+          onClick={() => {setDefaultHyperParameter()}}
+          >Set default value</button>
+          </div>
         <div>
           <div className="flex">
             <div>
@@ -314,7 +331,7 @@ export const CreateTrainingRequestPage = () => {
                   <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide">Style weight:</span>
                   <input
                     value={styleWeight}
-                    onChange={(e) => setSStyleWeight(e.target.value)}
+                    onChange={(e) => setStyleWeight(e.target.value)}
                     placeholder="Style Weight"
                     className="appearance-none bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 w-32 px-4"
                     required="required"
