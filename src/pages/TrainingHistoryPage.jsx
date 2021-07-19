@@ -20,11 +20,14 @@ export const TrainingHistoryPage = () => {
     isStopped: !loading
   };
 
-  useEffect(() => {
+  const loadTrainingRequests = () => {
     fetchAllTrainingRequest().then(rs=> {
-      console.log("rs:", rs)
       setTrainingRequests(rs)
     })
+  }
+
+  useEffect(() => {
+    loadTrainingRequests()
   }, [])
 
   return (

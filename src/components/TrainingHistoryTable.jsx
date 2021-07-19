@@ -1,7 +1,7 @@
 import {useHistory} from "react-router-dom";
 import moment from 'moment'
 import { confirmAlert } from 'react-confirm-alert';
-import { deleteTrainingRequest } from "../apis/training-request";
+import { deleteTrainingRequest, stopTraining } from "../apis/training-request";
 
 
 const renderStatus = (status) => {
@@ -44,9 +44,25 @@ export const TrainingHistoryTable = (props) => {
               onClick={() => history.push(`/training-requests/${id}`)}
               className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-blue-500 hover:bg-blue-700">View</button>
             {
-              status === 'ON PROGRESS' ? <button
-                onClick={() => history.push(`/training-requests/${id}`)}
-              className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">Stop</button> : 
+              status === 'ON PROGRESS' ? 
+              (<button
+                onClick={() => showAlert(status, name, () => {
+                  stopTraining(id).then(() => {
+                    let newTrainingRequests = {
+                      ...trainingRequest,
+                      status: "STOPPED"
+                    }
+                    setTrainingRequests(
+                      trainingRequests.map(item => {
+                        if(item.id == id) {
+                          return newTrainingRequests
+                        }
+                        return item
+                      }),
+                    )
+                  })
+                })}
+                className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">Stop</button>) : 
               (
                 <button
                   onClick={() => showAlert(status, name, () => {

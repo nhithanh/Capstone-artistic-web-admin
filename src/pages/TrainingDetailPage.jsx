@@ -5,7 +5,7 @@ import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import { TrainingResultTalbe } from '../components/TrainingResultTable';
 import { confirmAlert } from 'react-confirm-alert';
-import {fetchTrainingRequestDetail} from '../apis/training-request'
+import {fetchTrainingRequestDetail, stopTraining} from '../apis/training-request'
 import { fetchTrainningResultByRequestId } from '../apis/training-result'
 
 export const TrainingDetailPage = () => {
@@ -36,7 +36,7 @@ export const TrainingDetailPage = () => {
     })
   }, [id])
 
-  const showStopAlert = (title) => {
+  const showStopAlert = (title, handleOk) => {
     confirmAlert({
       overlayClassName: "darken",
       customUI: ({ onClose }) => {
@@ -46,8 +46,8 @@ export const TrainingDetailPage = () => {
             <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure to {title.toLowerCase()} training</p>
             <div className="flex items-center justify-center mt-4">
               <button onClick={async () => {
-                onClose()
-                
+                handleOk()
+                onClose()      
               }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
                 {title}
               </button>
@@ -86,7 +86,14 @@ export const TrainingDetailPage = () => {
       case "ON PROGRESS":
         return (
           <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" 
-          onClick={() => showStopAlert("Stop")}>
+          onClick={() => showStopAlert("Stop", () => {
+            stopTraining(id).then(() => {
+              setTrainingRequestDetail({
+                ...trainingRequestDetail,
+                status: "STOPPED"
+              })
+            })
+          })}>
           Stop training
         </button>
         )
