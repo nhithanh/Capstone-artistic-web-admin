@@ -8,7 +8,13 @@ export const login = async ({username, password}) => {
         const response = await axios.post(ENDPOINT_URL, payload)
         return response.data
     } catch (error) {
-        return error.response.data
+        if(error.response)
+            return error.response.data
+        else if (error.request) {
+            return {
+                statusCode: 666
+            }
+        } 
     }
 }
 
