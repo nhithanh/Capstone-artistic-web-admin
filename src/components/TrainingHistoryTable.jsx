@@ -1,7 +1,9 @@
 import {useHistory} from "react-router-dom";
 import moment from 'moment'
 import { confirmAlert } from 'react-confirm-alert';
-import { deleteTrainingRequest, stopTraining } from "../apis/training-request";
+import { handleDeleteTrainingRequest, stopTraining } from "../apis/training-request";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTrainingRequest, selectTrainingRequests, updateTrainingRequests } from "../redux/slicers/training-request";
 
 
 const renderStatus = (status) => {
@@ -19,9 +21,11 @@ const renderStatus = (status) => {
 
 export const TrainingHistoryTable = (props) => {
   const history = useHistory();
-  const {trainingRequests, setTrainingRequests} = props
+  const trainingRequests = useSelector(selectTrainingRequests)
+  const dispatch = useDispatch()
   const renderTableItem = () => {
-    return trainingRequests.map(trainingRequest => {
+    return Object.keys(trainingRequests).map(key => {
+      const trainingRequest = trainingRequests[key]
       const {id, name, createdAt, accessURL, status, checkpoint} = trainingRequest
       return (
         <tr className="hover:bg-gray-50" key={id}>
@@ -52,22 +56,15 @@ export const TrainingHistoryTable = (props) => {
                       ...trainingRequest,
                       status: "STOPPED"
                     }
-                    setTrainingRequests(
-                      trainingRequests.map(item => {
-                        if(item.id === id) {
-                          return newTrainingRequests
-                        }
-                        return item
-                      }),
-                    )
+                    dispatch(updateTrainingRequests(newTrainingRequests))
                   })
                 })}
                 className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">Stop</button>) : 
               (
                 <button
                   onClick={() => showAlert(status, name, () => {
-                    deleteTrainingRequest(id).then(() => {
-                      setTrainingRequests(trainingRequests.filter(trainingRequest => trainingRequest.id !== id))
+                    handleDeleteTrainingRequest(id).then(() => {
+                      dispatch(deleteTrainingRequest({id}))
                     })
                   })}
                   className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">

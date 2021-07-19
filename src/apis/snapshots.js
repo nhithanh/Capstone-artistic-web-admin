@@ -1,5 +1,5 @@
 import axios from "axios"
-import {MAIN_SERVER} from "../config"
+import {MAIN_SERVER} from "../configs"
 
 export const fetchAllSnapshots = async (id) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/styles/${id}/snapshots`

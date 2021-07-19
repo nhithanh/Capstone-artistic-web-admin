@@ -1,5 +1,5 @@
 import axios from "axios"
-import {MAIN_SERVER} from "../config"
+import {MAIN_SERVER} from "../configs"
 
 export const fetchAllTrainingRequest = async () => {
     const ENDPOINT_URL = `${MAIN_SERVER}/training-requests`
@@ -48,7 +48,7 @@ export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep,
     })
 }
 
-export const deleteTrainingRequest = (id) => {
+export const handleDeleteTrainingRequest = (id) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/training-requests/${id}`
     return axios.delete(ENDPOINT_URL)
 }

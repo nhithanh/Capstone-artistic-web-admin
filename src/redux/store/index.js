@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import isLoadingReducer from '../slicers/is-loading.slicer'
+import trainingRequestsReducer from '../slicers/training-request'
 
 export const store = configureStore({
   reducer: {
-    isLoading: isLoadingReducer,
+    trainingRequests: trainingRequestsReducer,
   }, 
 });
