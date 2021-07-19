@@ -16,7 +16,16 @@ const trainingRequestsSlicer = createSlice({
         },
         updateTrainingRequests: (state, action) => {
             const updateTrainingRequest = action.payload
-            state.data[updateTrainingRequest.id] = updateTrainingRequest
+            const trainingRequest = state.data[updateTrainingRequest.id]
+            if(trainingRequest) {
+                state.data[updateTrainingRequest.id] = {
+                    ...updateTrainingRequest,
+                    accessURL: trainingRequest.accessURL 
+                }
+            } else {
+                state.data[updateTrainingRequest.id] = updateTrainingRequest  
+            }
+            
         },
         deleteTrainingRequest: (state, action) => {
             const deleteTrainingRequest = action.payload
