@@ -27,6 +27,7 @@ export const TrainingHistoryPage = () => {
   }
 
   useEffect(() => {
+    document.title = "Training Requests"
     loadTrainingRequests()
   }, [])
 

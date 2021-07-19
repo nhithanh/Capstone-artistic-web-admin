@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {addShowcase} from '../apis/showcases'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
@@ -18,6 +18,10 @@ export const UploadNewShowCasePage = () => {
     animationData: animationData,
     isStopped: !loading
   };
+
+  useEffect(() => {
+    document.title = "Upload Showcase Image"
+  }, [])
 
   const handleAddNewShowcase = () => {
     setLoading(true)

@@ -41,6 +41,10 @@ export const StyleDetailPage = () => {
   };
 
   useEffect(() => {
+    document.title = "Style Detail"
+  }, [])
+
+  useEffect(() => {
     setLoading(true)
     fetchAllShowcases(id).then(showcases => {
       setShowcases(showcases)

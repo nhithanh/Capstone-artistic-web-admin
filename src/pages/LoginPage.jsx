@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { login, getUserProfile } from '../apis/auth'
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
@@ -19,6 +19,10 @@ export const LoginPage = () => {
     animationData: animationData,
     isStopped: !isLoading
   };
+
+  useEffect(() => {
+    document.title = "Login"
+  }, [])
 
 
   const handleLogin = async () => {

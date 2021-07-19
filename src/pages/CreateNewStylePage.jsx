@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {createNewStyle} from '../apis/styles'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
@@ -19,6 +19,10 @@ export const CreateNewStylePage = () => {
     animationData: animationData,
     isStopped: !loading
   };
+
+  useEffect(() => {
+    document.title = "Create New Style"
+  }, [])
 
   const handleCreate = () => {
     setLoading(true)

@@ -25,6 +25,10 @@ export const TrainingDetailPage = () => {
   };
 
   useEffect(() => {
+    document.title = "Training Request Detail"
+  }, [])
+
+  useEffect(() => {
     setLoading(true)
     fetchTrainingRequestDetail(id).then(trainingRequest => {
       const {id} = trainingRequest

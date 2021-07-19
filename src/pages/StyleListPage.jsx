@@ -18,6 +18,7 @@ export const StyleListPage = () => {
   };
 
   useEffect(() => {
+    document.title = "Application's Style List"
     setLoading(true)
     fetchAllStyles().then(styles => {
       setStyles(styles)

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory} from "react-router-dom";
 import Lottie from 'react-lottie';
@@ -52,6 +52,10 @@ export const CreateTrainingRequestPage = () => {
     isStopped: !loading
   };
 
+  useEffect(() => {
+    document.title = "Create Training Request"
+  }, [])
+
   const handleCreateNewTrainingRequest = () => {
     setLoading(true)
     createNewTrainingRequest({
@@ -95,7 +99,7 @@ export const CreateTrainingRequestPage = () => {
           <img
             alt="Go back icon"
             src="https://image.flaticon.com/icons/png/512/545/545680.png"
-            onClick={() => history.push('/training-history')}
+            onClick={() => history.push('/training-requests')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
           <div className="text-2xl font-thin">Create Training Request</div>
 

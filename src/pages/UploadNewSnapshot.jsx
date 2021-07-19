@@ -28,6 +28,10 @@ export const UploadNewSnapshotPage = () => {
   };
 
   useEffect(() => {
+    document.title = "Upload Snapshot"
+  }, [])
+
+  useEffect(() => {
     fetchStyleDetail(id).then(data => {
       setStyle(data)
     })
