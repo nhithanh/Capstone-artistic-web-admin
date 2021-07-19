@@ -43,6 +43,7 @@ export const CreateNewStylePage = () => {
     if(iconFile !== null) {
       let fileType = iconFile.type
       if(fileType.split("/")[0] !== "image") {
+        isValid = false
         setIconFileError("Style Image must be valid image file")
       }
     }

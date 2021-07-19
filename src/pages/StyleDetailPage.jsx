@@ -33,6 +33,9 @@ export const StyleDetailPage = () => {
   const [showcases,
     setShowcases] = useState([])
 
+  const [styleNameError, setStyleNameError] = useState('')
+  const [iconFileError, setIconFileError] = useState('')
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -66,6 +69,11 @@ export const StyleDetailPage = () => {
     })
   }, [id])
 
+  const resetStyleDetailError = () => {
+    setIconFileError("")
+    setStyleNameError("")
+  }
+
   const handleUpdateStyle = () => {
     let isValid = true
     const activeSnapshotId_ = activeSnapshotId === "" ? null : activeSnapshotId
@@ -83,7 +91,22 @@ export const StyleDetailPage = () => {
           });
       }
     }
-    if(isValid) {
+
+    if(styleName.length === 0) {
+      isValid = false
+      setStyleNameError("Style Name cannot be blank!")
+    }
+
+    if(iconFile !== null) {
+      let fileType = iconFile.type
+      if(fileType.split("/")[0] !== "image") {
+        isValid = false
+        setIconFileError("Style Image must be valid image file")
+      }
+    }
+
+    if(isValid === true) {
+      resetStyleDetailError()
       setLoading(true)
       if (iconFile) {
         updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId: activeSnapshotId_}).then(() => setLoading(false))
