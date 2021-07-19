@@ -30,22 +30,22 @@ export const CreateTrainingRequestPage = () => {
   const [saveStep, setSaveStep] = useState(1000)
   const [saveStepError, setSaveStepError] = useState('')
 
-  const [contentWeight, setContentWeight] = useState(1000)
+  const [contentWeight, setContentWeight] = useState(500000)
   const [contentWeightError, setContentWeightError] = useState('')
 
-  const [styleWeight,setSStyleWeight] = useState(100000)
+  const [styleWeight,setSStyleWeight] = useState(10000000000)
   const [styleWeightError, setStyleWeightError] = useState('')
 
-  const [relu12, setRelu12] = useState(0.8)
+  const [relu12, setRelu12] = useState(0.7)
   const [relu12Error, setRelu12Error] = useState('')
 
-  const [relu22, setRelu22] = useState(0.5)
+  const [relu22, setRelu22] = useState(0.6)
   const [relu22Error, setRelu22Error] = useState('')
 
-  const [relu33, setRelu33] = useState(0.3)
+  const [relu33, setRelu33] = useState(0.4)
   const [relu33Error, setRelu33Error] = useState('')
 
-  const [relu43, setRelu43] = useState(0.1)
+  const [relu43, setRelu43] = useState(0.2)
   const [relu43Error, setRelu43Error] = useState('')
 
   const [loading,

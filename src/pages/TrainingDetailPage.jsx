@@ -5,12 +5,15 @@ import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import { TrainingResultTalbe } from '../components/TrainingResultTable';
 import { confirmAlert } from 'react-confirm-alert';
-import {fetchTrainingRequestDetail, stopTraining} from '../apis/training-request'
+import {fetchTrainingRequestDetail, handleDeleteTrainingRequest, stopTraining} from '../apis/training-request'
 import { fetchTrainningResultByRequestId } from '../apis/training-result'
+import { useDispatch } from 'react-redux';
+import { deleteTrainingRequest, updateTrainingRequests } from '../redux/slicers/training-request';
 
 export const TrainingDetailPage = () => {
   const history = useHistory();
   const { id } = useParams();
+  const dispatch = useDispatch()
 
   const [loading,
     setLoading] = useState(false)
@@ -96,10 +99,17 @@ export const TrainingDetailPage = () => {
 
   const renderDeleteButton = (status) => {
     switch (status) {
+      case "STOPPED":
       case "WAITING": 
         return (
         <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" 
-          onClick={() => showStopAlert("Delete")}>
+          onClick={() => showStopAlert("Delete", () => {
+            console.log("HERE")
+            handleDeleteTrainingRequest(id).then(() => {
+              dispatch(deleteTrainingRequest({id}))
+            })
+            history.push('/training-requests')
+          })}>
           Delete training
         </button>
         )
@@ -107,7 +117,8 @@ export const TrainingDetailPage = () => {
         return (
           <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" 
           onClick={() => showStopAlert("Stop", () => {
-            stopTraining(id).then(() => {
+            stopTraining(id).then((rs) => {
+              dispatch(updateTrainingRequests(rs))
               setTrainingRequestDetail({
                 ...trainingRequestDetail,
                 status: "STOPPED"
