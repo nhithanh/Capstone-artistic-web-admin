@@ -40,9 +40,11 @@ export const LoginPage = () => {
     if (isValid === true) {
       setIsLoading(true)
       const response = await login({ username: email, password })
+      console.log(response)
       if (response.token) {
         await localStorage.setItem('token', response.token)
         const {data, statusCode, message} = await getUserProfile()
+        console.log(statusCode, message)
         if(statusCode && message) {
           toast.error(message, {
             position: "top-right",
@@ -60,7 +62,21 @@ export const LoginPage = () => {
             history.push("/styles")
           }
         }
-      } else {
+      } 
+      
+      else if(response.statusCode === 666) {
+        toast.error("Network Error!", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          });
+          localStorage.setItem("isLoggedIn", false)
+          setIsLoading(false)
+      }
+      else {
         toast.error("Email or password is not correct!", {
           position: "top-right",
           autoClose: 4000,

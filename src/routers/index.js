@@ -23,9 +23,11 @@ export default function App() {
     if(statusCode && message) {
       localStorage.setItem("isLoggedIn", false)
     } else {
-      const {role} = data
-      if(role === "admin") {
-        localStorage.setItem("isLoggedIn", true)
+      if(data) {
+        const {role} = data
+        if(role === "admin") {
+          localStorage.setItem("isLoggedIn", true)
+        }
       }
     }
   }
