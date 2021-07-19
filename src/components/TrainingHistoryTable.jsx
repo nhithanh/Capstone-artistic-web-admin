@@ -54,7 +54,7 @@ export const TrainingHistoryTable = (props) => {
                     }
                     setTrainingRequests(
                       trainingRequests.map(item => {
-                        if(item.id == id) {
+                        if(item.id === id) {
                           return newTrainingRequests
                         }
                         return item
@@ -67,7 +67,7 @@ export const TrainingHistoryTable = (props) => {
                 <button
                   onClick={() => showAlert(status, name, () => {
                     deleteTrainingRequest(id).then(() => {
-                      setTrainingRequests(trainingRequests.filter(trainingRequest => trainingRequest.id != id))
+                      setTrainingRequests(trainingRequests.filter(trainingRequest => trainingRequest.id !== id))
                     })
                   })}
                   className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">

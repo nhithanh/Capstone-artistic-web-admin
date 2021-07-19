@@ -24,20 +24,36 @@ export const TrainingDetailPage = () => {
     isStopped: !loading
   };
 
+  const fetchTrainingResults = () => {
+    fetchTrainningResultByRequestId(id).then(results => {
+      setTrainingResults(results)
+    })       
+  }
+
+  const reloadTrainingResults = () => {
+    setLoading(true)
+    fetchTrainningResultByRequestId(id).then(results => {
+      setTrainingResults(results)
+      setLoading(false)
+    })       
+  }
+
+  const callFetchTrainingRequestDetail = () => {
+    fetchTrainingRequestDetail(id).then(trainingRequest => {
+      setTrainingRequestDetail(trainingRequest)
+    })
+  }
+
   useEffect(() => {
     document.title = "Training Request Detail"
   }, [])
 
   useEffect(() => {
     setLoading(true)
-    fetchTrainingRequestDetail(id).then(trainingRequest => {
-      const {id} = trainingRequest
-      setTrainingRequestDetail(trainingRequest)
-      fetchTrainningResultByRequestId(id).then(results => {
-        setTrainingResults(results)
-      })       
-      setLoading(false)
-    })
+    Promise.all([
+      fetchTrainingResults(),
+      callFetchTrainingRequestDetail()
+    ]).then(() => setLoading(false))
   }, [id])
 
   const showStopAlert = (title, handleOk) => {
@@ -108,7 +124,6 @@ export const TrainingDetailPage = () => {
 
   if(trainingRequestDetail !== null) {
     const {
-      id, 
       checkpoint, 
       contentWeight, 
       description, 
@@ -194,7 +209,11 @@ export const TrainingDetailPage = () => {
               renderDeleteButton(status)
             }
           </div>
-          <div className="font-medium text-xl mt-5 flex items-center">Training Results: <img className="ml-2 cursor-pointer w-5" src="https://image.flaticon.com/icons/png/512/545/545661.png" alt="Reload Icon"/></div>
+          <div className="font-medium text-xl mt-5 flex items-center">Training Results: <img 
+          onClick={() => {
+            reloadTrainingResults()
+          }}
+          className="ml-2 cursor-pointer w-5" src="https://image.flaticon.com/icons/png/512/545/545661.png" alt="Reload Icon"/></div>
           <TrainingResultTalbe results={trainingResults}/>
         </div>
       </div>

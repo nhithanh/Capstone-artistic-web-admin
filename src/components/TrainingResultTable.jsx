@@ -22,7 +22,7 @@ export const TrainingResultTalbe = (props) => {
     })
   }
 
-  if(results.length == 0) {
+  if(results.length === 0) {
     return (
       <>
         <div className="flex justify-center mt-5">
