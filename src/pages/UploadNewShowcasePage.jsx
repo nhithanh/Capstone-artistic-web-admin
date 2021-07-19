@@ -110,6 +110,7 @@ export const UploadNewShowCasePage = () => {
                     class="opacity-0 w-full h-full absolute" />
                   Browse
                 </div>
+                
               </div>
             </div>
             <div className="ml-5 w-1/3">
@@ -124,10 +125,11 @@ export const UploadNewShowCasePage = () => {
                   type="text"
                   name="integration[shop_name]"
                   id="integration_shop_name" />
-                <p className="text-red text-xs hidden">Please fill out this field.</p>
+                <p className="text-red-500 text-xs">{showcaseNameError}</p>
               </div>
             </div>
           </div>
+          <p className="text-xs mt-1 text-red-500">{iconFileError}</p>
           <button
             onClick={() => handleAddNewShowcase()}
             className="text-grey-lighter font-bold py-2 px-3 mt-4 text-white rounded text-sm bg-green-500 hover:bg-green-700 shadow-lg w-1/4">Add Showcase</button>

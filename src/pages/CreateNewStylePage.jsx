@@ -136,7 +136,7 @@ export const CreateNewStylePage = () => {
               </div>
             </div>
           </div>
-          <p className="text-red-500 text-xs">{iconFileError}</p>
+          <p className="text-red-500 text-xs mt-1">{iconFileError}</p>
           <button
             onClick={() => handleCreate()}
             className="text-grey-lighter font-bold py-2 px-3 mt-4 text-white rounded text-sm bg-green-500 hover:bg-green-700 shadow-lg w-1/4">Create</button>

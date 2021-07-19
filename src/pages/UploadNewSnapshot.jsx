@@ -2,21 +2,20 @@ import React, {useState, useEffect} from 'react'
 import {NavMenu} from '../components/NavMenu'
 import {useHistory, useParams} from "react-router-dom";
 import {uploadSnapshot} from '../apis/snapshots';
-import {fetchStyleDetail} from '../apis/styles'
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 
 export const UploadNewSnapshotPage = () => {
   const history = useHistory();
   const {id} = useParams();
-  const [style,
-    setStyle] = useState({})
   const [snapshotName,
     setSnapshotName] = useState('')
+  const [snapshotNameError, setSnapshotNameError] = useState('')
   const [snapshotDescription,
     setSnapshotDescription] = useState('')
   const [selectedFile,
     setSelectedFile] = useState(null)
+  const [selectedFileError, setSelectedFileError] = useState('')
   const [loading,
     setLoading] = useState(false)
 
@@ -31,18 +30,35 @@ export const UploadNewSnapshotPage = () => {
     document.title = "Upload Snapshot"
   }, [])
 
-  useEffect(() => {
-    fetchStyleDetail(id).then(data => {
-      setStyle(data)
-    })
-  }, [id])
+  const clearError = () => {
+    setSnapshotNameError('')
+    setSelectedFileError('')
+  }
 
   const handleUploadSnapshot = async() => {
-    setLoading(true)
-    uploadSnapshot({snapshotName, snapshotFile: selectedFile, styleRoutingKey: style.routingKey, styleId: id, description: snapshotDescription}).then(() => {
-      setLoading(false)
-      history.push(`/styles/${id}`)
-    })
+    let isValid = true
+    if(snapshotName == '') {
+      isValid = false
+      setSnapshotNameError("Snapshot Name cannot be blank!")
+    }
+    if(selectedFile == null) {
+      isValid = false
+      setSelectedFileError("You must select snapshot file to upload!")
+    } else {
+      const ext = selectedFile.name.slice(selectedFile.name.lastIndexOf('.') + 1)
+      if(ext !== 'pth') {
+        isValid = false
+        setSelectedFileError("Invalid snapshot file. Snapshot file extension must be .pth")
+      }
+    }
+    if(isValid) {
+      clearError()
+      setLoading(true)
+      uploadSnapshot({snapshotName, snapshotFile: selectedFile, styleId: id, description: snapshotDescription}).then(() => {
+        setLoading(false)
+        history.push(`/styles/${id}`)
+      })
+    }
   }
 
   return (
@@ -84,6 +100,7 @@ export const UploadNewSnapshotPage = () => {
                   type="text"
                   name="integration[shop_name]"
                   id="integration_shop_name"/>
+                <p className="text-xs text-red-500">{snapshotNameError}</p>
               </div>
               <div class="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Brief information</label>
@@ -122,8 +139,7 @@ export const UploadNewSnapshotPage = () => {
                               <br/>
                               Select a file from your computer
                             </p>
-                          )
-}
+                          )}
                       </div>
                       <input
                         onChange={(event) => {
@@ -133,7 +149,7 @@ export const UploadNewSnapshotPage = () => {
                         class="hidden"/>
                     </label>
                   </div>
-                  <p className="text-red text-xs hidden">Please fill out this field.</p>
+                  <p className="text-xs text-red-500">{selectedFileError}</p>
                 </div>
               </div>
               <button

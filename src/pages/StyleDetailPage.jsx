@@ -195,7 +195,7 @@ export const StyleDetailPage = () => {
                     setStyleName(event.target.value)
                   }}
                   type="text"/>
-                <p className="text-red text-xs hidden">Please fill out this field.</p>
+                <p className="text-red-500 text-xs">{styleNameError}</p>
               </div>
               <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Status</label>
@@ -206,7 +206,6 @@ export const StyleDetailPage = () => {
                   <option value={true}>Active</option>
                   <option value={false}>Deactive</option>
                 </select>
-                <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>
               <div class="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Active snapshot</label>
@@ -219,13 +218,12 @@ export const StyleDetailPage = () => {
                   <option value="">Select active snapshot</option>
                   {snapshots.map(snapshot => {
                     return <option value={snapshot.id}>{snapshot.name}</option>
-                  })
-}
+                  })}
                 </select>
-                <p className="text-red text-xs hidden">Please fill out this field.</p>
               </div>
             </div>
           </div>
+          <p className="text-xs text-red-500">{iconFileError}</p>
           <button
             onClick={() => handleUpdateStyle()}
             className="text-grey-lighter font-bold py-2 px-3 mt-4 text-white rounded text-sm bg-green-500 hover:bg-green-700 shadow-lg w-1/4">Save</button>
