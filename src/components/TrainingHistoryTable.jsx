@@ -1,6 +1,7 @@
 import {useHistory} from "react-router-dom";
 import moment from 'moment'
 import { confirmAlert } from 'react-confirm-alert';
+import { deleteTrainingRequest } from "../apis/training-request";
 
 
 const renderStatus = (status) => {
@@ -18,7 +19,7 @@ const renderStatus = (status) => {
 
 export const TrainingHistoryTable = (props) => {
   const history = useHistory();
-  const {trainingRequests} = props
+  const {trainingRequests, setTrainingRequests} = props
   const renderTableItem = () => {
     return trainingRequests.map(trainingRequest => {
       const {id, name, createdAt, accessURL, status, checkpoint} = trainingRequest
@@ -48,7 +49,11 @@ export const TrainingHistoryTable = (props) => {
               className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">Stop</button> : 
               (
                 <button
-                  onClick={() => showAlert(status, name, () => console.log("Click"))}
+                  onClick={() => showAlert(status, name, () => {
+                    deleteTrainingRequest(id).then(() => {
+                      setTrainingRequests(trainingRequests.filter(trainingRequest => trainingRequest.id != id))
+                    })
+                  })}
                   className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-red-400 hover:bg-red-700">
                   Delete
                 </button>
@@ -71,8 +76,8 @@ export const TrainingHistoryTable = (props) => {
             <p className="font-thin text-sm mt-2 text-center">Please confirm that you are sure to {title.toLowerCase()} {name}</p>
             <div className="flex items-center justify-center mt-4">
               <button onClick={async () => {
+                handleOk()
                 onClose()
-                
               }} className="bg-yellow-300 px-4 py-2 rounded-lg shadow-lg text-black text-base mx-2 font-medium">
                 {title}
               </button>

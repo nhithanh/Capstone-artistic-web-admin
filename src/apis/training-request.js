@@ -47,3 +47,8 @@ export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep,
         }
     })
 }
+
+export const deleteTrainingRequest = (id) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/training-requests/${id}`
+    return axios.delete(ENDPOINT_URL)
+}
