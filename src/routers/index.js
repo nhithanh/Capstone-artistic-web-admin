@@ -11,8 +11,13 @@ import { getUserProfile } from '../apis/auth'
 import { TrainingHistoryPage } from "../pages/TrainingHistoryPage";
 import { TrainingDetailPage } from "../pages/TrainingDetailPage";
 import { CreateTrainingRequestPage } from "../pages/CreateTrainingRequestPage";
+import {setUpListen, useSocket} from '../hooks/useSocket'
+import { useDispatch } from "react-redux";
 
 export default function App() {
+
+  const dispatch = useDispatch()
+
   const checkLogin = async () => {
     const {data, statusCode, message} = await getUserProfile()
     if(statusCode && message) {
@@ -24,10 +29,15 @@ export default function App() {
       }
     }
   }
+
+  useSocket()
+
   useEffect(() => {
     checkLogin()
+    setUpListen({dispatch})
     return () => { }
   }, [])
+
   return (
     <Router>
       <Switch>
