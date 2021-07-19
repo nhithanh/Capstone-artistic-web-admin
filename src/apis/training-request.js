@@ -1,5 +1,5 @@
 import axios from "axios"
-import {MAIN_SERVER} from "./config"
+import {MAIN_SERVER} from "../config"
 
 export const fetchAllTrainingRequest = async () => {
     const ENDPOINT_URL = `${MAIN_SERVER}/training-requests`

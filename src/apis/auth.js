@@ -1,4 +1,4 @@
-import {MAIN_SERVER} from './config'
+import {MAIN_SERVER} from '../configs'
 import axios from 'axios'
 
 export const login = async ({username, password}) => {

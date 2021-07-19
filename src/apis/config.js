@@ -1,1 +1,0 @@
-export const MAIN_SERVER = 'http://localhost:3001'
