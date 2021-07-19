@@ -6,10 +6,10 @@ import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 
 export const CreateNewStylePage = () => {
-  const [styleName,
-    setStyleName] = useState('')
-  const [iconFile,
-    setIconFile] = useState(null)
+  const [styleName, setStyleName] = useState('')
+  const [styleNameError, setStyleNameError] = useState('')
+  const [iconFile, setIconFile] = useState(null)
+  const[iconFileError, setIconFileError] = useState('')
   const history = useHistory();
   const [loading,
     setLoading] = useState(false)
@@ -24,12 +24,37 @@ export const CreateNewStylePage = () => {
     document.title = "Create New Style"
   }, [])
 
+  const resetError = () => {
+    setStyleNameError('')
+    setIconFileError('')
+  }
+
   const handleCreate = () => {
-    setLoading(true)
-    createNewStyle({styleName, isActive: false, iconFile}).then(rs => {
-      setLoading(false)
-      history.push("/styles")
-    })
+    let isValid = true
+    if(styleName.length === 0) {
+      isValid = false
+      setStyleNameError("Style Name cannot be blank!")
+    }
+    if(iconFile === null) {
+      isValid = false
+      setIconFileError("You must select style image to create new style")
+    }
+
+    if(iconFile !== null) {
+      let fileType = iconFile.type
+      if(fileType.split("/")[0] !== "image") {
+        setIconFileError("Style Image must be valid image file")
+      }
+    }
+
+    if(isValid == true) {
+      resetError()
+      setLoading(true)
+      createNewStyle({styleName, isActive: false, iconFile}).then(rs => {
+        setLoading(false)
+        history.push("/styles")
+      })
+    }
   }
 
   return (
@@ -79,7 +104,7 @@ export const CreateNewStylePage = () => {
                     type="file"
                     accept="image/png, image/jpeg"
                     class="opacity-0 w-full h-full absolute"/>
-                  Browse
+                  Browse 
                 </div>
               </div>
             </div>
@@ -95,7 +120,7 @@ export const CreateNewStylePage = () => {
                   type="text"
                   name="integration[shop_name]"
                   id="integration_shop_name"/>
-                <p className="text-red text-xs hidden">Please fill out this field.</p>
+                <p className="text-red-400 text-xs">{styleNameError}</p>
               </div>
               <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Status</label>
@@ -110,6 +135,7 @@ export const CreateNewStylePage = () => {
               </div>
             </div>
           </div>
+          <p className="text-red-500 text-xs">{iconFileError}</p>
           <button
             onClick={() => handleCreate()}
             className="text-grey-lighter font-bold py-2 px-3 mt-4 text-white rounded text-sm bg-green-500 hover:bg-green-700 shadow-lg w-1/4">Create</button>
