@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { useState } from 'react'
 import { confirmAlert } from 'react-confirm-alert';
+import empty2 from '../assets/empty2.png'
 
 export const SnapshotTable = (props) => {
 
@@ -66,7 +67,7 @@ export const SnapshotTable = (props) => {
     return (
       <>
         <div className="flex justify-center mt-5">
-          <img className="w-72" src="https://ouch-cdn2.icons8.com/HfyHdgt1q5Fx1iA_z9w50f3PkS_x6rN_ttCjhrS-tXM/rs:fit:912:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNTY4/L2E3YTJlNWRkLTA3/MmUtNGEyMS1hN2M4/LTRlZmJlNGY2ZDMz/ZS5zdmc.png"></img>
+          <img className="w-72" src={empty2}></img>
         </div>
         <p className="text-base font-medium tracking-wide text-center mt-5">Snapshot list is empty</p>
       </>

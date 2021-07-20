@@ -9,6 +9,8 @@ import {fetchTrainingRequestDetail, handleDeleteTrainingRequest, stopTraining} f
 import { fetchTrainningResultByRequestId } from '../apis/training-result'
 import { useDispatch } from 'react-redux';
 import { deleteTrainingRequest, updateTrainingRequests } from '../redux/slicers/training-request';
+import backIcon from '../assets/back.png'
+import reloadIcon from '../assets/reload.png'
 
 export const TrainingDetailPage = () => {
   const history = useHistory();
@@ -171,7 +173,7 @@ export const TrainingDetailPage = () => {
           <div className="flex items-center mb-6">
             <img
               alt="Go back icon"
-              src="https://image.flaticon.com/icons/png/512/545/545680.png"
+              src={backIcon}
               onClick={() => history.push('/training-requests')}
               className="h-6 w-6 mr-5 cursor-pointer"/>
             <div className="text-2xl font-thin">Training Detail Page</div>
@@ -224,7 +226,7 @@ export const TrainingDetailPage = () => {
           onClick={() => {
             reloadTrainingResults()
           }}
-          className="ml-2 cursor-pointer w-5" src="https://image.flaticon.com/icons/png/512/545/545661.png" alt="Reload Icon"/></div>
+          className="ml-2 cursor-pointer w-5" src={reloadIcon} alt="Reload Icon"/></div>
           <TrainingResultTalbe results={trainingResults}/>
         </div>
       </div>

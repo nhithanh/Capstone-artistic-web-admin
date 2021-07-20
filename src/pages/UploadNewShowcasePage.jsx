@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import { useParams } from 'react-router-dom'
+import backIcon from '../assets/back.png'
+import defaultPicture from '../assets/default.jpg'
 
 export const UploadNewShowCasePage = () => {
   const [showcaseName, setShowcaseName] = useState('')
@@ -79,7 +81,7 @@ export const UploadNewShowCasePage = () => {
         <div className="flex items-center mb-6">
           <img
             alt="Go back icon"
-            src="https://image.flaticon.com/icons/png/512/545/545680.png"
+            src={backIcon}
             onClick={() => history.push(`/styles/${id}`)}
             className="h-6 w-6 mr-5 cursor-pointer" />
           <div className="text-2xl font-thin">Add New Showcase</div>
@@ -94,8 +96,7 @@ export const UploadNewShowCasePage = () => {
                 className="rounded-lg shadow-2xl h-44"
                 src={iconFile
                   ? URL.createObjectURL(iconFile)
-                  : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600." +
-                  "jpg"} />
+                  : defaultPicture} />
 
               <div class="mt-3 space-y-2 w-full text-xs flex items-end">
                 <label className="font-semibold text-gray-600 py-2">Showcase image:</label>

@@ -5,6 +5,8 @@ import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import {createNewTrainingRequest} from '../apis/training-request';
 import {toast, ToastContainer} from 'react-toastify'
+import backIcon from '../assets/back.png'
+import defaultPicture from '../assets/default.jpg'
 
 
 function isNumeric(n) {
@@ -14,7 +16,6 @@ function isNumeric(n) {
 export const CreateTrainingRequestPage = () => {
   const history = useHistory();
   const [styleFile, setStyleFile] = useState(null)
-  const [styleFileError, setStyleFileError] = useState('')
 
   const [name,setName] = useState('')
   const [nameError, setNameError] = useState('')
@@ -76,7 +77,6 @@ export const CreateTrainingRequestPage = () => {
 
   const clearError = () => {
     setNameError('')
-    setStyleFileError('')
     setLrError('')
     setNumOfIterationsError('')
     setSaveStepError('')
@@ -204,7 +204,7 @@ export const CreateTrainingRequestPage = () => {
         <div className="flex items-center mb-6">
           <img
             alt="Go back icon"
-            src="https://image.flaticon.com/icons/png/512/545/545680.png"
+            src={backIcon}
             onClick={() => history.push('/training-requests')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
           <div className="text-2xl font-thin">Create Training Request</div>
@@ -249,9 +249,7 @@ export const CreateTrainingRequestPage = () => {
                 alt="Style Icon"
                 className="rounded-lg shadow h-44"
                 src={styleFile
-                ? URL.createObjectURL(styleFile)
-                : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600." +
-                  "jpg"}/>
+                ? URL.createObjectURL(styleFile) : defaultPicture}/>
 
               <div class="mt-3 space-y-2 w-full text-xs flex items-end">
                 <label className="font-semibold text-gray-600 py-2">Style Icon:</label>

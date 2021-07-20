@@ -4,6 +4,7 @@ import {useHistory, useParams} from "react-router-dom";
 import {uploadSnapshot} from '../apis/snapshots';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
+import backIcon from '../assets/back.png'
 
 export const UploadNewSnapshotPage = () => {
   const history = useHistory();
@@ -79,7 +80,7 @@ export const UploadNewSnapshotPage = () => {
         <div className="flex items-center mb-6">
           <img
             alt="return icon"
-            src="https://image.flaticon.com/icons/png/512/545/545680.png"
+            src={backIcon}
             onClick={() => history.push(`/styles/${id}`)}
             className="h-6 w-6 mr-5 cursor-pointer"/>
           <div className="text-2xl font-thin">Upload New Style's Snapshot</div>

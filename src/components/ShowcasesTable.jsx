@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { confirmAlert } from 'react-confirm-alert';
+import empty1 from '../assets/empty1.png'
 
 export const ShowcaseTable = (props) => {
 
@@ -59,7 +60,7 @@ export const ShowcaseTable = (props) => {
     return (
       <>
         <div className="flex justify-center mt-5">
-          <img className="w-72" alt="Empty illustration" src="https://ouch-cdn2.icons8.com/eOA0XcgiFoMRCQyi2pwBBBJnZ4A9MnRQ1sYhmZxYtk8/rs:fit:932:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvODk2/LzBkMjlmYjI5LTIz/YTMtNGM0MS1hMWMw/LTliN2JmMzRiNDY4/Ny5zdmc.png"></img>
+          <img className="w-72" alt="Empty illustration" src={empty1}></img>
         </div>
         <p className="text-base font-medium tracking-wide text-center mt-5">Show case list is empty</p>
       </>

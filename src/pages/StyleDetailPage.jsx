@@ -12,6 +12,8 @@ import {fetchAllShowcases} from '../apis/showcases';
 import {deleteShowcase} from '../apis/showcases'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import backIcon from '../assets/back.png'
+
 
 export const StyleDetailPage = () => {
   const history = useHistory();
@@ -156,7 +158,7 @@ export const StyleDetailPage = () => {
         <div className="flex items-center mb-6">
           <img
             alt="Go back icon"
-            src="https://image.flaticon.com/icons/png/512/545/545680.png"
+            src={backIcon}
             onClick={() => history.push('/styles')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
           <div className="text-2xl font-thin">Application's Style Detail</div>

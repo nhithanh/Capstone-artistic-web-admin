@@ -7,10 +7,11 @@ import {TrainingHistoryTable} from '../components/TrainingHistoryTable';
 import {fetchAllTrainingRequest} from '../apis/training-request'
 import { useDispatch } from 'react-redux'
 import { setTrainingReqests } from '../redux/slicers/training-request'
+import backIcon from '../assets/back.png'
+
 export const TrainingHistoryPage = () => {
   const history = useHistory();
-  const [loading,
-    setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   
   const dispatch = useDispatch()
 
@@ -22,6 +23,7 @@ export const TrainingHistoryPage = () => {
   };
 
   const loadTrainingRequests = () => {
+    setLoading(true)
     fetchAllTrainingRequest().then(rs=> {
       let data = {}
       for(let item of rs) {
@@ -29,6 +31,7 @@ export const TrainingHistoryPage = () => {
       }
       console.log(data)
       dispatch(setTrainingReqests(data))
+      setLoading(false)
     })
   }
 
@@ -56,7 +59,7 @@ export const TrainingHistoryPage = () => {
         <div className="flex items-center mb-6">
           <img
             alt="Go back icon"
-            src="https://image.flaticon.com/icons/png/512/545/545680.png"
+            src={backIcon}
             onClick={() => history.push('/styles')}
             className="h-6 w-6 mr-5 cursor-pointer"/>
           <div className="text-2xl font-thin">Training Requests</div>
