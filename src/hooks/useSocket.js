@@ -21,6 +21,8 @@ export const setUpListen = async ({dispatch}) => {
                 dispatch(updateTrainingRequests(updatedTrainingRequest))
                 break;
             }
+            default:
+                break;
         }
     })
 }

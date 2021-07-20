@@ -1,12 +1,10 @@
 import moment from 'moment'
-import { useState } from 'react'
 import { confirmAlert } from 'react-confirm-alert';
 import empty2 from '../assets/empty2.png'
 
 export const SnapshotTable = (props) => {
 
   const { snapshots, handleDeleteSnapshot, activeSnapshotId } = props
-  const [snapshotError, setSnapshotError] = useState("")
   const showDeleteAlert = (snapshot) => {
     confirmAlert({
       overlayClassName: "darken",
@@ -24,10 +22,6 @@ export const SnapshotTable = (props) => {
                 Delete
               </button>
               <button onClick={() => onClose()} className="bg-gray-800 px-4 py-2 rounded-lg shadow-lg text-white text-base mx-2 font-medium">Cancel</button>
-            </div>
-
-            <div className="flex items-center justify-center">
-              <div className="text-red-700 text-xs mt-4">{snapshotError}</div>
             </div>
           </div>
         )
@@ -67,7 +61,7 @@ export const SnapshotTable = (props) => {
     return (
       <>
         <div className="flex justify-center mt-5">
-          <img className="w-72" src={empty2}></img>
+          <img alt="Empty illustration" className="w-72" src={empty2}></img>
         </div>
         <p className="text-base font-medium tracking-wide text-center mt-5">Snapshot list is empty</p>
       </>

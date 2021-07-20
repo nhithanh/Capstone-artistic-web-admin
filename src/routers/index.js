@@ -38,7 +38,7 @@ export default function App() {
     checkLogin()
     setUpListen({dispatch})
     return () => { }
-  }, [])
+  }, [dispatch])
 
   return (
     <Router>

@@ -38,7 +38,7 @@ export const UploadNewSnapshotPage = () => {
 
   const handleUploadSnapshot = async() => {
     let isValid = true
-    if(snapshotName == '') {
+    if(snapshotName === '') {
       isValid = false
       setSnapshotNameError("Snapshot Name cannot be blank!")
     }

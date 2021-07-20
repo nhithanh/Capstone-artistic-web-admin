@@ -27,7 +27,7 @@ export const TrainingResultTalbe = (props) => {
     return (
       <>
         <div className="flex justify-center mt-5">
-          <img className="w-72" src={empty2}></img>
+          <img alt="Empty illustration" className="w-72" src={empty2}></img>
         </div>
         <p className="text-base font-medium tracking-wide text-center mt-5">Training result is empty</p>
       </>

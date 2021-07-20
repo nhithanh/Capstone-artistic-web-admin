@@ -50,7 +50,7 @@ export const CreateNewStylePage = () => {
       }
     }
 
-    if(isValid == true) {
+    if(isValid === true) {
       resetError()
       setLoading(true)
       createNewStyle({styleName, isActive: false, iconFile}).then(rs => {
