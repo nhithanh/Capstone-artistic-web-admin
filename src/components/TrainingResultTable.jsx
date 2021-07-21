@@ -5,7 +5,7 @@ export const TrainingResultTalbe = (props) => {
   const {results} = props
   const renderTableItem = () => {
     return results.map(trainingHistory => {
-      const {id, photoAccessURL, snapshotAccessURL, step} = trainingHistory
+      const {id, photoAccessURL, snapshotAccessURL, step, createdAt} = trainingHistory
       return (
         <tr className="hover:bg-gray-50" key={id}>
           <td className="text-center border-b border-grey-light"><span className="font-medium">{step}</span></td>
@@ -17,7 +17,7 @@ export const TrainingResultTalbe = (props) => {
           <td className="text-center border-b border-grey-light flex justify-center py-2">
             <a href={photoAccessURL}><img alt="training result" className="h-20 bg-red-100 rounded" src={photoAccessURL}></img></a>
           </td>
-          <td className="text-center border-b border-grey-light">{moment(new Date()).format('DD/MM/YYYY')}</td>
+          <td className="text-center border-b border-grey-light">{moment(createdAt).format('DD/MM/YYYY, h:mm:ss a')}</td>
         </tr>
       )
     })
@@ -36,7 +36,7 @@ export const TrainingResultTalbe = (props) => {
   }
 
   return (
-    <div className="bg-white shadow-md rounded my-6 w-4/5">
+    <div className="bg-white shadow-md rounded">
       <table className="text-left w-full border-collapse">
         <thead>
           <tr>

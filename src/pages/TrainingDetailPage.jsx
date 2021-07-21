@@ -166,11 +166,11 @@ export const TrainingDetailPage = () => {
         }}>
           <Lottie options={defaultOptions} height={100} width={100}/>
         </div>
-        <div className="w-1/3 fixed h-screen">
+        <div className="w-1/4 xl:w-1/5 2xl:w-1/6 fixed h-screen">
           <NavMenu activePage="Training Requests"/>
         </div>
-        <div className="w-1/3"></div>
-        <div className="w-2/3 pt-5 overflow-auto pb-10">
+        <div className="w-1/4 xl:w-1/5 2xl:w-1/6"></div>
+        <div className="w-3/4 xl:w-4/5 px-9 2xl:w-5/6 pt-5 overflow-auto pb-10">
           <div className="flex items-center mb-6">
             <img
               alt="Go back icon"
@@ -193,7 +193,7 @@ export const TrainingDetailPage = () => {
                   className="rounded-lg shadow-2xl h-44"
                   src={styleAccessURL}/>
               </div>
-              <div className="ml-5 w-1/3">
+              <div className="ml-5">
               <p className="font-medium text-purple-800 text-sm mb-4">Training Parameters:</p>
                 <div>
                   <span className="text-sm font-medium mr-2 text-gray-900 tracking-wide">lr:</span><button className="text-sm bg-blue-500 rounded-full w-12 text-white py-0.5">{lr.toExponential()}</button>
@@ -223,7 +223,7 @@ export const TrainingDetailPage = () => {
               renderDeleteButton(status)
             }
           </div>
-          <div className="font-medium text-xl mt-5 flex items-center">Training Results: <img 
+          <div className="font-medium text-xl mt-5 flex items-center mb-5">Training Results: <img 
           onClick={() => {
             reloadTrainingResults()
           }}

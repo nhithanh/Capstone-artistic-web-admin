@@ -24,7 +24,7 @@ export const NavMenu = (props) => {
   const history = useHistory();
 
   return (
-    <div className="flex w-full h-full max-w-xs p-4 bg-gray-800">
+    <div className="flex w-full h-full p-4 bg-gray-800 m-0">
       <ul className="flex flex-col w-full">
         {renderItem('Style List', () => history.push('/styles'))}
         {renderItem('Create New Style', () => history.push('/create-new-style'))}
