@@ -42,7 +42,7 @@ export const TrainingHistoryTable = (props) => {
             {renderStatus(status)}
           </td>
           <td className="text-center border-b border-grey-light">{checkpoint}</td>
-          <td className="text-center border-b border-grey-light">{moment(createdAt).format('DD/MM/YYYY')}</td>
+          <td className="text-center border-b border-grey-light">{moment(createdAt).format('DD/MM/YYYY, h:mm:ss')}</td>
           <td className="py-4 border-b border-grey-light">
             <button
               onClick={() => history.push(`/training-requests/${id}`)}

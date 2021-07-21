@@ -150,11 +150,11 @@ export const StyleDetailPage = () => {
       }}>
         <Lottie options={defaultOptions} height={100} width={100}/>
       </div>
-      <div className="w-1/5 fixed h-screen">
+      <div className="w-1/4 xl:w-1/5 2xl:w-1/6 fixed h-screen">
         <NavMenu activePage="Style List"/>
       </div>
-      <div className="w-1/5"></div>
-      <div className="w-3/5 pt-5">
+      <div className="w-1/4 xl:w-1/5 2xl:w-1/6"></div>
+      <div className="w-3/4 xl:w-4/5 px-9 2xl:w-5/6 pt-5 overflow-auto pb-10">
         <div className="flex items-center mb-6">
           <img
             alt="Go back icon"
@@ -242,7 +242,7 @@ export const StyleDetailPage = () => {
           handleDeleteSnapshot={handleDeleteSnapshot}
           activeSnapshotId={activeSnapshotId}/>
         <div className="font-medium text-xl mb-3 mt-10">Style's Showcase List</div>
-        <div className="my-4 flex justify-end">
+        <div className="my-4 flex justify-start">
           <button
             onClick={() => history.push(`/styles/${id}/upload-showcase`)}
             className="text-grey-lighter font-bold py-2 px-3 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 shadow">Upload New Showcase Image</button>

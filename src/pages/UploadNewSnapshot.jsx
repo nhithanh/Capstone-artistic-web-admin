@@ -73,10 +73,11 @@ export const UploadNewSnapshotPage = () => {
       }}>
         <Lottie options={defaultOptions} height={100} width={100}/>
       </div>
-      <div className="w-1/5">
+      <div className="w-1/4 xl:w-1/5 2xl:w-1/6 fixed h-screen">
         <NavMenu activePage="Style List"/>
       </div>
-      <div className="w-3/5 pt-5">
+      <div className="w-1/4 xl:w-1/5 2xl:w-1/6"></div>
+      <div className="w-3/4 xl:w-4/5 px-9 2xl:w-5/6 pt-5 overflow-auto pb-10">
         <div className="flex items-center mb-6">
           <img
             alt="return icon"
