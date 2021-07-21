@@ -25,7 +25,7 @@ export const StyleDetailPage = () => {
   const [iconURL,
     setIconURL] = useState(null)
   const [styleName,
-    setStyleName] = useState(null)
+    setStyleName] = useState('')
   const [status,
     setStatus] = useState(true)
   const [snapshots,

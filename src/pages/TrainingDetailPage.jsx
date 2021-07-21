@@ -166,10 +166,11 @@ export const TrainingDetailPage = () => {
         }}>
           <Lottie options={defaultOptions} height={100} width={100}/>
         </div>
-        <div className="w-1/5">
+        <div className="w-1/3 fixed h-screen">
           <NavMenu activePage="Training Requests"/>
         </div>
-        <div className="w-4/5 pt-5">
+        <div className="w-1/3"></div>
+        <div className="w-2/3 pt-5 overflow-auto pb-10">
           <div className="flex items-center mb-6">
             <img
               alt="Go back icon"
