@@ -90,8 +90,8 @@ export const TrainingDetailPage = () => {
         return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-blue-400">Wating</button>
       case "STOPPED":
         return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-red-500">Stopped</button>
-      case "ON PROGRESS":
-        return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-yellow-500">On Progress</button>
+      case "IN PROGRESS":
+        return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-yellow-500">In Progress</button>
       case "COMPLETED":
         return <button className="ml-1 text-sm cursor-default rounded-full px-3 text-white py-1 bg-green-500">Completed</button>
       default:
@@ -115,7 +115,7 @@ export const TrainingDetailPage = () => {
           Delete training
         </button>
         )
-      case "ON PROGRESS":
+      case "IN PROGRESS":
         return (
           <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" 
           onClick={() => showStopAlert("Stop", () => {

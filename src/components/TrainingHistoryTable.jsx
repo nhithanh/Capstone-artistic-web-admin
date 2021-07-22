@@ -12,8 +12,10 @@ const renderStatus = (status) => {
       return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue-400 text-white shadow">Waiting</button>
     case "STOPPED":
       return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-red-400 text-white shadow">Stopped</button>
-    case "ON PROGRESS":
-      return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-yellow-500 text-white shadow">On progress</button>
+    case "IN PROGRESS":
+      return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-yellow-500 text-white shadow">In progress</button>
+    case "COMPLETED":
+      return <button className="cursor-default text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-green-500 text-white shadow">Completed</button>
     default:
       return null
   }
@@ -48,7 +50,7 @@ export const TrainingHistoryTable = (props) => {
               onClick={() => history.push(`/training-requests/${id}`)}
               className="text-grey-lighter font-bold py-1 px-3 mr-1 text-white rounded text-xs bg-blue-500 hover:bg-blue-700">View</button>
             {
-              status === 'ON PROGRESS' ? 
+              status === 'IN PROGRESS' ? 
               (<button
                 onClick={() => showAlert(status, name, () => {
                   stopTraining(id).then(() => {
@@ -79,7 +81,7 @@ export const TrainingHistoryTable = (props) => {
   }
 
   const showAlert = (status, name, handleOk) => {
-    const title = status === "ON PROGRESS" ? "Stop" : "Delete"
+    const title = status === "IN PROGRESS" ? "Stop" : "Delete"
     confirmAlert({
       overlayClassName: "darken",
       customUI: ({ onClose }) => {
