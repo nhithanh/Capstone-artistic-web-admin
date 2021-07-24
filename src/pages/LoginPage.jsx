@@ -3,15 +3,14 @@ import { login, getUserProfile } from '../apis/auth'
 import Lottie from 'react-lottie';
 import animationData from '../assets/loading.json'
 import {useHistory} from 'react-router-dom'
+import { validateEmail } from '../utils'
 import { toast, ToastContainer } from 'react-toastify'
 export const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
-  const [responseError, setResponseError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  
   const history = useHistory()
   const defaultOptions = {
     loop: true,
@@ -33,6 +32,12 @@ export const LoginPage = () => {
       isValid = false
       setEmailError("Email is required!")
     }
+    if(email.length > 0) {
+      if(validateEmail(email) == false) {
+        setEmailError("Email is not valid format!")
+      }
+    }
+    
     if (password.length === 0) {
       isValid = false
       setPasswordError("Password is required!")

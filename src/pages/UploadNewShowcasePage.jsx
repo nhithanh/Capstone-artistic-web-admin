@@ -41,7 +41,7 @@ export const UploadNewShowCasePage = () => {
 
     if (iconFile === null) {
       isValid = false
-      setIconFileError("You must select style image to create new style")
+      setIconFileError("You must select showcase image before upload.")
     }
 
     if (iconFile !== null) {
@@ -49,7 +49,7 @@ export const UploadNewShowCasePage = () => {
 
       if (fileType.split("/")[0] !== "image") {
         isValid = false
-        setIconFileError("Style Image must be valid image file")
+        setIconFileError("Showcase Image must be valid image file")
       }
     }
 
