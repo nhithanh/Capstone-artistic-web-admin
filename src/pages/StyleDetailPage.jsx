@@ -184,7 +184,7 @@ export const StyleDetailPage = () => {
               </div>
             </div>
             <div className="ml-5 w-1/3">
-              <div class="mb-3 space-y-2 w-full text-xs">
+              <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Style Name</label>
                 <input
                   value={styleName}
@@ -207,7 +207,7 @@ export const StyleDetailPage = () => {
                   <option value={false}>Deactive</option>
                 </select>
               </div>
-              <div class="mb-3 space-y-2 w-full text-xs">
+              <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Active snapshot</label>
                 <select
                   value={activeSnapshotId}

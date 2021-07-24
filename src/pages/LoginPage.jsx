@@ -45,7 +45,6 @@ export const LoginPage = () => {
       if (response.token) {
         await localStorage.setItem('token', response.token)
         const {data, statusCode, message} = await getUserProfile()
-        console.log(statusCode, message)
         if(statusCode && message) {
           toast.error(message, {
             position: "top-right",
@@ -61,6 +60,16 @@ export const LoginPage = () => {
             localStorage.setItem("isLoggedIn", true)
             setIsLoading(false)
             history.push("/styles")
+          } else {
+            setIsLoading(false)
+            toast.error("Not have permission to enter", {
+              position: "top-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              draggable: true,
+              progress: undefined,
+            });
           }
         }
       } 
@@ -114,15 +123,15 @@ export const LoginPage = () => {
                 value={email}
                 type="text"
                 className="border rounded-lg px-3 py-2 mt-1 text-sm w-full" />
-              <p class={`text-xs mt-1 text-red-500 ${emailError == '' ? 'hidden' : ''}`}>{emailError}</p>
+              <p className={`text-xs mt-1 text-red-500 ${emailError == '' ? 'hidden' : ''}`}>{emailError}</p>
             </div>
             <label className="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               type="password"
-              class="border rounded-lg px-3 py-2 mt-1 text-sm w-full" />
-            <p class={`text-xs mt-1 text-red-500 ${passwordError == '' ? 'hidden' : ''}`}>{passwordError}</p>
+              className="border rounded-lg px-3 py-2 mt-1 text-sm w-full" />
+            <p className={`text-xs mt-1 text-red-500 ${passwordError == '' ? 'hidden' : ''}`}>{passwordError}</p>
             <button
               type="button"
               className="transition duration-200 mt-5 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block mb-3"
@@ -136,11 +145,11 @@ export const LoginPage = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                class="w-4 h-4 inline-block">
+                className="w-4 h-4 inline-block">
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>

@@ -91,7 +91,7 @@ export const UploadNewSnapshotPage = () => {
         <div>
           <div className="">
             <div className="w-1/3">
-              <div class="mb-3 space-y-2 w-full text-xs">
+              <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Snapshot Name</label>
                 <input
                   value={snapshotName}
@@ -104,7 +104,7 @@ export const UploadNewSnapshotPage = () => {
                   id="integration_shop_name"/>
                 <p className="text-xs text-red-500">{snapshotNameError}</p>
               </div>
-              <div class="mb-3 space-y-2 w-full text-xs">
+              <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Brief information</label>
                 <textarea
                   value={snapshotDescription}
@@ -119,12 +119,12 @@ export const UploadNewSnapshotPage = () => {
               </div>
               <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Snapshot File</label>
-                <div class="grid grid-cols-1 space-y-2">
-                  <div class="flex items-center justify-center w-full">
+                <div className="grid grid-cols-1 space-y-2">
+                  <div className="flex items-center justify-center w-full">
                     <label
-                      class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                      className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                       <div
-                        class="h-full w-full text-center flex flex-col items-center justify-center items-center cursor-pointer">
+                        className="h-full w-full text-center flex flex-col items-center justify-center items-center cursor-pointer">
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
@@ -134,7 +134,7 @@ export const UploadNewSnapshotPage = () => {
                             <p>{selectedFile.name}</p>
                           )
                           : (
-                            <p class="pointer-none text-gray-500 ">
+                            <p className="pointer-none text-gray-500 ">
                               Drag and drop files here
                               <br/>
                               or
@@ -148,7 +148,7 @@ export const UploadNewSnapshotPage = () => {
                         setSelectedFile(event.target.files[0])
                       }}
                         type="file"
-                        class="hidden"/>
+                        className="hidden"/>
                     </label>
                   </div>
                   <p className="text-xs text-red-500">{selectedFileError}</p>

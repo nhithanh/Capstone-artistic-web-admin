@@ -95,7 +95,7 @@ export const CreateNewStylePage = () => {
                 src={iconFile
                 ? URL.createObjectURL(iconFile) : defaultPicture}/>
 
-              <div class="mt-3 space-y-2 w-full text-xs flex items-end">
+              <div className="mt-3 space-y-2 w-full text-xs flex items-end">
                 <label className="font-semibold text-gray-600 py-2">Style Icon:</label>
                 <div
                   className="relative text-grey-lighter font-bold py-1 px-3 mt-4 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 ml-3">
@@ -105,13 +105,13 @@ export const CreateNewStylePage = () => {
                   }}
                     type="file"
                     accept="image/png, image/jpeg"
-                    class="opacity-0 w-full h-full absolute"/>
+                    className="opacity-0 w-full h-full absolute"/>
                   Browse 
                 </div>
               </div>
             </div>
             <div className="ml-5 w-1/3">
-              <div class="mb-3 space-y-2 w-full text-xs">
+              <div className="mb-3 space-y-2 w-full text-xs">
                 <label className="font-semibold text-gray-600 py-2">Style Name</label>
                 <input
                   value={styleName}
