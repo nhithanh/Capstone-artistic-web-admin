@@ -137,7 +137,6 @@ export const TrainingDetailPage = () => {
 
   if(trainingRequestDetail !== null) {
     const {
-      checkpoint, 
       contentWeight, 
       description, 
       lr, 
@@ -153,7 +152,11 @@ export const TrainingDetailPage = () => {
       styleWeight
     } = trainingRequestDetail
 
-    
+    let checkpoint = 0
+
+    if(trainingResults.length > 0) {
+      checkpoint = trainingResults[trainingResults.length - 1].step
+    }
 
     return (
       <div className="flex h-screen">

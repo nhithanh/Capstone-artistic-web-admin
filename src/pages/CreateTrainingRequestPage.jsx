@@ -108,7 +108,7 @@ export const CreateTrainingRequestPage = () => {
       let fileType = styleFile.type
       if(fileType.split("/")[0] !== "image") {
         isValid = false
-        toast.error('Style Image must be valid image file!', {
+        toast.error('Unauthorized to access this page', {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,
@@ -159,6 +159,20 @@ export const CreateTrainingRequestPage = () => {
     if(isNumeric(relu43) === false) {
       isValid = false
       setRelu43Error('Relu4_3 weight must be a number')
+    }
+    if(isValid === true) {
+      if(+saveStep > +numOfIterations) {
+        isValid = false
+        toast.error('NumOfIterations must larger than SaveStep!', {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+      }
     }
     if(isValid === true) {
       setLoading(true)

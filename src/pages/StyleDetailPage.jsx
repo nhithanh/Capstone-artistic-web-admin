@@ -60,7 +60,7 @@ export const StyleDetailPage = () => {
         setIconURL(data.iconURL)
         setStyleName(data.styleName)
         setStatus(data.isActive)
-        setActiveSnapshotId(data.activeSnapshotId)
+        setActiveSnapshotId(data.activeSnapshotId ? data.activeSnapshotId : "")
         setLoading(false)
       }).catch(err => {
         setLoading(false)
@@ -78,10 +78,8 @@ export const StyleDetailPage = () => {
 
   const handleUpdateStyle = () => {
     let isValid = true
-    const activeSnapshotId_ = activeSnapshotId === "" ? null : activeSnapshotId
-    
-    if(status === true) {
-      if(activeSnapshotId_ == null) {
+    if(status === true || status == 'true') {
+      if(activeSnapshotId == "") {
         isValid = false
         toast.error('Cannot active style without active snapshot id!', {
           position: "top-right",
@@ -111,9 +109,9 @@ export const StyleDetailPage = () => {
       resetStyleDetailError()
       setLoading(true)
       if (iconFile) {
-        updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId: activeSnapshotId_}).then(() => setLoading(false))
+        updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId: activeSnapshotId == "" ? null : activeSnapshotId}).then(() => setLoading(false))
       } else {
-        updateStyle({id, styleName, isActive: status, activeSnapshotId: activeSnapshotId_}).then(() => setLoading(false))
+        updateStyle({id, styleName, isActive: status, activeSnapshotId: activeSnapshotId == "" ? null : activeSnapshotId}).then(() => setLoading(false))
       }
     }
   }
