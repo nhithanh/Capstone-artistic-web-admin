@@ -108,7 +108,7 @@ export const CreateTrainingRequestPage = () => {
       let fileType = styleFile.type
       if(fileType.split("/")[0] !== "image") {
         isValid = false
-        toast.error('Unauthorized to access this page', {
+        toast.error('Invalid style image!', {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,
