@@ -49,6 +49,8 @@ export const CreateTrainingRequestPage = () => {
   const [relu43, setRelu43] = useState(0.2)
   const [relu43Error, setRelu43Error] = useState('')
 
+  const [snapshotFile, setSnapshotFile] = useState(null)
+
   const [loading,
     setLoading] = useState(false)
 
@@ -175,6 +177,23 @@ export const CreateTrainingRequestPage = () => {
       }
     }
     if(isValid === true) {
+      if(snapshotFile) {
+        const ext = snapshotFile.name.slice(snapshotFile.name.lastIndexOf('.') + 1)
+        if(ext !== 'pth') {
+          isValid = false
+          toast.error('Invalid snapshot file. Snapshot file extension must be .pth', {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+          });
+        }
+      }
+    }
+    if(isValid === true) {
       setLoading(true)
       createNewTrainingRequest({
         name,
@@ -182,6 +201,7 @@ export const CreateTrainingRequestPage = () => {
         numOfIterations,
         description,
         lr,
+        snapshotFile,
         referenceStyleFile: styleFile,
         relu12Weight: relu12,
         relu22Weight: relu22,
@@ -251,6 +271,7 @@ export const CreateTrainingRequestPage = () => {
             name="integration[shop_name]"
             id="integration_shop_name"/>
         </div>
+  
         <div className="font-medium text-xl mb-5 flex items-center">
           Training Hyperparameters:
           <button className="px-2 py-1 rounded shadow text-xs bg-blue-500 text-white ml-3 cursor-pointer hover:bg-blue-700"
@@ -419,10 +440,47 @@ export const CreateTrainingRequestPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="mb-3 space-y-2 w-full text-xs mt-3">
+          <label className="font-medium text-xl">Snapshot File:</label>
+          <div className="mt-0 text-xs">Upload snapshot file in case continue training</div>
+          <div className="grid grid-cols-1 space-y-2">
+            <div className="flex items-center justify-center w-1/3">
+              <label
+                className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                <div
+                  className="h-full w-full text-center flex flex-col items-center justify-center items-center cursor-pointer">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/> {snapshotFile
+                    ? (
+                      <p>{snapshotFile.name}</p>
+                    )
+                    : (
+                      <p className="pointer-none text-gray-500 ">
+                        Drag and drop files here
+                        <br/>
+                        or
+                        <br/>
+                        Select a file from your computer
+                      </p>
+                    )}
+                </div>
+                <input
+                  onChange={(event) => {
+                  setSnapshotFile(event.target.files[0])
+                }}
+                  type="file"
+                  className="hidden"/>
+              </label>
+            </div>
+            </div>
+            </div>
+        <div className="flex">
           <button
             onClick={() => handleCreateNewTrainingRequest()}
-            className="text-base font-medium px-7 py-1 bg-green-500 text-white rounded shadow mt-6">Create Training Request</button>
+            className="text-base font-medium px-7 py-2 bg-green-500 text-white rounded shadow mt-6 hover:bg-green-700">Create Training Request</button>
         </div>
        
       </div>

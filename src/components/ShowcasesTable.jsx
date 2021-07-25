@@ -6,7 +6,6 @@ export const ShowcaseTable = (props) => {
 
   const { showcases, handleDeleteShowcase } = props
   const showDeleteAlert = (showcase) => {
-    console.log(showcase)
     confirmAlert({
       overlayClassName: "darken",
       customUI: ({ onClose }) => {

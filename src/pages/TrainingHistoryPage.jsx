@@ -29,7 +29,6 @@ export const TrainingHistoryPage = () => {
       for(let item of rs) {
         data[item.id] = item
       }
-      console.log(data)
       dispatch(setTrainingReqests(data))
       setLoading(false)
     })

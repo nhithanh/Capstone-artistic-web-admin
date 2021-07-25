@@ -46,7 +46,6 @@ export const LoginPage = () => {
     if (isValid === true) {
       setIsLoading(true)
       const response = await login({ username: email, password })
-      console.log(response)
       if (response.token) {
         await localStorage.setItem('token', response.token)
         const {data, statusCode, message} = await getUserProfile()

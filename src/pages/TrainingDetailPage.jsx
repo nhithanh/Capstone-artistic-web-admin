@@ -106,7 +106,6 @@ export const TrainingDetailPage = () => {
         return (
         <button className="px-2 py-1 bg-red-400 text-white font-medium text-sm rounded shadow ml-4 hover:bg-red-600" 
           onClick={() => showStopAlert("Delete", () => {
-            console.log("HERE")
             handleDeleteTrainingRequest(id).then(() => {
               dispatch(deleteTrainingRequest({id}))
             })

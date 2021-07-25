@@ -9,7 +9,6 @@ export const  PrivateRoute = ({component: Component, ...rest}) => {
         {...rest}
         render={(props) => {return <Component {...props}/>}}/>
     } else {
-      console.log("in else")
       toast.error('Unauthorized to access this page', {
         position: "top-right",
         autoClose: 4000,

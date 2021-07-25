@@ -13,7 +13,6 @@ export const emitEvent = async ({event, payload}) => {
 
 export const setUpListen = async ({dispatch}) => {
     await socket.on("ADMIN", data => {
-        console.log("Receive message baby boy")
         const {action} = data
         switch(action) {
             case UPDATE_TRAINING_REQUEST: {

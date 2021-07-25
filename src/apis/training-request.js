@@ -26,7 +26,7 @@ export const fetchTrainingResult = async(id) => {
     return response.data
 }
 
-export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep, contentWeight, styleWeight, relu12Weight, relu22Weight, relu33Weight, relu43Weight, name, description, numOfIterations}) => {
+export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep, contentWeight, styleWeight, relu12Weight, relu22Weight, relu33Weight, relu43Weight, name, description, numOfIterations, snapshotFile}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/training-requests`
     let formData = new FormData();
     formData.append("name", name)
@@ -41,6 +41,9 @@ export const createNewTrainingRequest = async({referenceStyleFile, lr, saveStep,
     formData.append("relu22Weight", relu22Weight)
     formData.append("relu33Weight", relu33Weight)
     formData.append("relu43Weight", relu43Weight)
+    if(snapshotFile) {
+        formData.append("snapshot", snapshotFile)
+    }
     return axios.post(ENDPOINT_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
