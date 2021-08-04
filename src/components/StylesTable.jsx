@@ -1,6 +1,8 @@
+import {useState, useEffect} from 'react'
 import {useHistory} from "react-router-dom";
 import moment from 'moment'
 import { confirmAlert } from 'react-confirm-alert';
+import { range } from 'lodash';
 
 
 export const StylesTable = (props) => {
@@ -9,6 +11,17 @@ export const StylesTable = (props) => {
   const handleItemClick = (styleId) => {
     history.push(`/styles/${styleId}`)
   }
+
+  const eachPage = 7
+
+  const [totalPage, setTotalPage] = useState(0)
+  const [curPage, setCurPage] = useState(0)
+
+  useEffect(() => {
+    console.log(styles.length)
+    setTotalPage(Math.ceil(styles.length / eachPage))
+  }, [styles])
+
   const showDeleteAlert = (style) => {
     confirmAlert({
       overlayClassName: "darken",
@@ -32,7 +45,7 @@ export const StylesTable = (props) => {
     })
   }
   const renderTableItem = () => {
-    return styles.map(style => {
+    return styles.slice((curPage) * eachPage, (curPage) * eachPage + eachPage).map(style => {
       const {
         styleName,
         iconURL,
@@ -81,8 +94,22 @@ export const StylesTable = (props) => {
     })
   }
 
+  const renderPage = () => {
+    return range(1, totalPage + 1).map(i => {
+      if(i === curPage + 1) {
+        return <button className="font-bold text-white bg-red-400 shadow px-3 py-2 rounded mx-2 cursor-default">{i}</button>
+      } else {
+        return <button onClick={() => {
+          setCurPage(i - 1)
+        }} className="font-bold text-white shadow px-3 py-2 rounded mx-2 text-red-400 border border-red-500 hover:bg-red-600 hover:text-white">{i}</button>
+      }
+    })
+  }
+
   return (
-      <div className="bg-white shadow-md rounded my-6">
+    <div>
+
+<div className="bg-white shadow-md rounded my-6">
         <table className="text-left w-full border-collapse">
           <thead>
             <tr>
@@ -104,6 +131,13 @@ export const StylesTable = (props) => {
             {renderTableItem()}
           </tbody>
         </table>
+        
       </div>
+      <div className="flex items-center justify-center">
+        {renderPage()}
+      </div>
+
+    </div>
+      
     )
   }

@@ -12,7 +12,7 @@ import backIcon from '../assets/back.png'
 export const TrainingHistoryPage = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false)
-  
+
   const dispatch = useDispatch()
 
   const defaultOptions = {

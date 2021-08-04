@@ -15,6 +15,7 @@ function isNumeric(n) {
 
 export const CreateTrainingRequestPage = () => {
   const history = useHistory();
+
   const [styleFile, setStyleFile] = useState(null)
 
   const [name, setName] = useState('')

@@ -88,7 +88,7 @@ export const StyleDetailPage = () => {
           closeOnClick: true,
           draggable: true,
           progress: undefined,
-          });
+        });
       }
     }
 
@@ -109,9 +109,29 @@ export const StyleDetailPage = () => {
       resetStyleDetailError()
       setLoading(true)
       if (iconFile) {
-        updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId: activeSnapshotId === "" ? null : activeSnapshotId}).then(() => setLoading(false))
+        updateStyleWithIconChange({id, styleName, iconFile, isActive: status, activeSnapshotId: activeSnapshotId === "" ? null : activeSnapshotId}).then(() => {
+          setLoading(false)
+          toast.success('Save Successfully!', {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+          });
+        })
       } else {
-        updateStyle({id, styleName, isActive: status, activeSnapshotId: activeSnapshotId === "" ? null : activeSnapshotId}).then(() => setLoading(false))
+        updateStyle({id, styleName, isActive: status, activeSnapshotId: activeSnapshotId === "" ? null : activeSnapshotId}).then(() => {
+          setLoading(false)
+          toast.success('Save Successfully!', {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+          });
+        })
       }
     }
   }
